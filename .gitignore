@@ -1,0 +1,12 @@
+# JetBrains IDE (WebStorm, IntelliJ, PhpStorm etc.)
+.idea/
+*.iws
+*.iml
+
+# Betriebssystem-spezifische Dateien
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Optionale Log-Dateien
+*.log

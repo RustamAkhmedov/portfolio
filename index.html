@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rustam — Portfolio</title>
+  <script src="js/main.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="wallpaper"></div>
+<div class="scanlines"></div>
+<div id="scrollbar-track"><div id="scrollbar-fill"></div></div>
+
+<!-- Ambiente-Pixel-Icons + Sprachen-Badges im Hintergrund (dieselbe Ebene) -->
+<div class="pixel-icons">
+  <!-- mascot removed -->
+  <svg class="pi-2" viewBox="0 0 32 32" fill="none"><rect x="3" y="9" width="26" height="19" fill="#a855f7"/><rect x="3" y="6" width="12" height="4" fill="#a855f7"/><rect x="3" y="9" width="26" height="3" fill="#0a0710"/></svg>
+  <svg class="pi-3" viewBox="0 0 32 32" fill="none"><rect x="9" y="7" width="14" height="3" fill="#a855f7"/><rect x="7" y="10" width="18" height="18" fill="#c084fc"/><rect x="7" y="10" width="18" height="3" fill="#0a0710"/><rect x="11" y="15" width="2" height="9" fill="#0a0710"/><rect x="15" y="15" width="2" height="9" fill="#0a0710"/><rect x="19" y="15" width="2" height="9" fill="#0a0710"/></svg>
+  <svg class="pi-4" viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="24" height="24" fill="#c084fc"/><rect x="8" y="4" width="16" height="8" fill="#0a0710"/><rect x="10" y="6" width="6" height="4" fill="#c084fc"/><rect x="8" y="18" width="16" height="10" fill="#a855f7"/></svg>
+  <svg class="pi-5" viewBox="0 0 32 32" fill="none"><rect x="3" y="9" width="26" height="19" fill="#c084fc"/><rect x="3" y="6" width="12" height="4" fill="#c084fc"/><rect x="3" y="9" width="26" height="3" fill="#0a0710"/></svg>
+
+  <div class="lang-badge lb-cpp">C++</div>
+  <div class="lang-badge lb-java">JAVA</div>
+  <div class="lang-badge lb-py">PYTHON</div>
+  <div class="lang-badge lb-js">JS</div>
+  <div class="lang-badge lb-cs">C#</div>
+  <div class="lang-badge lb-sql">SQL</div>
+</div>
+
+<!-- ============ BOOT SCREEN ============ -->
+<div id="boot">
+  <div class="happy-mac"></div>
+  <div class="boot-text">welcome to rustam.os</div>
+</div>
+
+<!-- ============ MENU BAR (funktional) ============ -->
+<div class="menubar">
+  <div class="brand-group">
+    <span class="brand">rustam.os</span>
+    <span class="holyc-badge" title="Compiled with divine intervention"><span class="prompt">&gt;</span> <img class="holyc-logo" src="data:image/png;base64,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" alt="Holy C logo" /></span>
+  </div>
+
+  <div>
+    <a class="brand" href="index_en.html">en</a>
+  </div>
+
+  <div class="menu" id="menu-file">
+    <button type="button" onclick="toggleMenu('menu-file')">File</button>
+    <div class="menu-drop">
+      <a href="assets/lebenslauf/lebenslauf.pdf" download="Rustam_Lebenslauf.pdf">⤓ Lebenslauf herunterladen</a>
+      <a href="assets/lebenslauf/lebenslauf.pdf" target="_blank" rel="noopener">▤ Lebenslauf ansehen (PDF)</a>
+      <div class="divider"></div>
+    </div>
+  </div>
+
+  <div class="menu" id="menu-view">
+    <button type="button" onclick="toggleMenu('menu-view')">View</button>
+    <div class="menu-drop">
+      <a href="#about">→ About</a>
+      <a href="#projects">→ Projects</a>
+      <a href="#tryout">→ Try it out</a>
+      <a href="#contact">→ Contact</a>
+    </div>
+  </div>
+
+  <span class="clock" id="clock">--:--</span>
+</div>
+
+<div class="shell">
+  <div class="main-col">
+    <div class="flow-rail"></div>
+    <div class="flow-dot" id="flow-dot"></div>
+
+
+    <!-- ============ ÜBER MICH ============ -->
+    <section id="about">
+      <div class="mac-window">
+        <div class="titlebar">
+          <div class="dot"></div><div class="dot"></div>
+          <div class="name">about-me.app</div><span class="step-tag">01</span>
+          <div class="spacer"></div>
+        </div>
+        <div class="window-body">
+          <div class="about-grid">
+            <div class="photo-slot">
+              <img src="assets/profile/Akhmedov.jpg" alt="Rustam" style="width:100%;height:100%;object-fit:cover">
+            </div>
+            <div>
+              <div class="eyebrow">HTL PINKAFELD</div>
+              <h1 class="title">Hi, ich bin Rustam.</h1>
+              <div class="typewriter-line"><span id="tw-text"></span><span class="cursor">_</span></div>
+              <div class="about-text">
+                <p>Ich baue Dinge, die von dem <span class="hl">Terminal bis zum Browser-Tab</span> reichen — von Pythonscripts zur Automatisierung bis zu Webapps mit eigener Backend-Logik. </p>
+                <p>Nebenbei würde ich gerne praktische Erfahrungen in Sommerpraktiken sammeln und ziele langfristig auf eine Laufbahn im <span class="hl">DevOp-/IT-Security- oder KI-Bereich.</span></p>
+              </div>
+              <div class="tags">
+                <span class="tag">C++</span><span class="tag">Python</span><span class="tag">JavaScript</span>
+                <span class="tag">SQL</span><span class="tag">Java</span><span class="tag">IT-Security</span>
+              </div>
+
+              <div class="code-window">
+                <div class="code-titlebar"><div class="dot"></div> main.cpp</div>
+                <div class="code-body" id="code-body"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="flow-chevron">▼</div>
+
+    <!-- ============ TOP PROJECTS ============ -->
+    <section id="projects">
+      <div class="mac-window">
+        <div class="titlebar">
+          <div class="dot"></div><div class="dot"></div>
+          <div class="name">top-projects — finder</div><span class="step-tag">02</span>
+          <div class="spacer"></div>
+        </div>
+        <div class="window-body">
+          <div class="section-head"><h2>Top Projects</h2></div>
+          <div class="finder-scroll">
+            <a class="proj-card" href="https://github.com/RustamAkhmedov/OnlineIDE" target="_blank" rel="noopener">
+              <div class="proj-thumb">
+                <img class="proj-thumb-img" src="assets/projects/onlineide.png" alt="OnlineIDE Screenshot" onerror="this.style.display='none'">
+                <span class="proj-thumb-fallback">🖥️</span>
+              </div>
+              <div class="proj-info"><h3>OnlineIDE</h3><p>Browserbasierte IDE mit Code-Ausführung über die Judge0-API und json-server-Backend.</p><div class="stack">JavaScript · Judge0 · json-server</div><div class="gh-hint">▣ GitHub ↗</div></div>
+            </a>
+            <a class="proj-card" href="https://github.com/RustamAkhmedov/JDBC-TicketSystem" target="_blank" rel="noopener">
+              <div class="proj-thumb">
+                <img class="proj-thumb-img" src="assets/projects/jdbc-ticketsystem.png" alt="JDBC-TicketSystem Screenshot" onerror="this.style.display='none'">
+                <span class="proj-thumb-fallback">🎫</span>
+              </div>
+              <div class="proj-info"><h3>JDBC-TicketSystem</h3><p>Ticket-WebApp mit Spring und JDBC.</p><div class="stack">Java · Spring · JDBC</div><div class="gh-hint">▣ GitHub ↗</div></div>
+            </a>
+            <a class="proj-card" href="https://github.com/RustamAkhmedov/SpringWeatherWebsite" target="_blank" rel="noopener">
+              <div class="proj-thumb">
+                <img class="proj-thumb-img" src="assets/projects/weatherapp.png" alt="SpringWeatherWebsite Screenshot" onerror="this.style.display='none'">
+                <span class="proj-thumb-fallback">⛅</span>
+              </div>
+              <div class="proj-info"><h3>SpringWeatherWebsite</h3><p>Wetter-Website mit Spring und der OpenWeatherAPI.</p><div class="stack">Java · Spring · OpenWeatherAPI</div><div class="gh-hint">▣ GitHub ↗</div></div>
+            </a>
+            <a class="proj-card" href="https://github.com/RustamAkhmedov/SwingShooter2D" target="_blank" rel="noopener">
+              <div class="proj-thumb">
+                <img class="proj-thumb-img" src="assets/projects/swing-shootergame.png" alt="SwingShooter2D Screenshot" onerror="this.style.display='none'">
+                <span class="proj-thumb-fallback">🔫</span>
+              </div>
+              <div class="proj-info"><h3>SwingShooter2D</h3><p>2D-Shooter-Spiel mit Java Swing.</p><div class="stack">Java · Swing</div><div class="gh-hint">▣ GitHub ↗</div></div>
+            </a>
+            <a class="proj-card" href="https://github.com/RustamAkhmedov/DrawingTool" target="_blank" rel="noopener">
+              <div class="proj-thumb">
+                <img class="proj-thumb-img" src="assets/projects/drawingtool.png" alt="DrawingTool Screenshot" onerror="this.style.display='none'">
+                <span class="proj-thumb-fallback">🎨</span>
+              </div>
+              <div class="proj-info"><h3>DrawingTool</h3><p>Zeichen-Tool mit Raylib, geschrieben in C++.</p><div class="stack">C++ · raylib</div><div class="gh-hint">▣ GitHub ↗</div></div>
+            </a>
+            <a class="proj-card" href="https://github.com/RustamAkhmedov/Arkanoid" target="_blank" rel="noopener">
+              <div class="proj-thumb">
+                <img class="proj-thumb-img" src="assets/projects/arkanoid.png" alt="Arkanoid Screenshot" onerror="this.style.display='none'">
+                <span class="proj-thumb-fallback">🧱</span>
+              </div>
+              <div class="proj-info"><h3>Arkanoid</h3><p>Klassisches Arkanoid-Spiel mit Pygame.</p><div class="stack">Python · Pygame</div><div class="gh-hint">▣ GitHub ↗</div></div>
+            </a>
+            <a class="proj-card" href="https://github.com/RustamAkhmedov/Sudoku" target="_blank" rel="noopener">
+              <div class="proj-thumb">
+                <img class="proj-thumb-img" src="assets/projects/sudoku.png" alt="Sudoku Screenshot" onerror="this.style.display='none'">
+                <span class="proj-thumb-fallback">🔢</span>
+              </div>
+              <div class="proj-info"><h3>Sudoku</h3><p>Sudoku-Spiel im Browser.</p><div class="stack">JavaScript</div><div class="gh-hint">▣ GitHub ↗</div></div>
+            </a>
+            <a class="proj-card" href="https://github.com/RustamAkhmedov/Store" target="_blank" rel="noopener">
+              <div class="proj-thumb">
+                <img class="proj-thumb-img" src="assets/projects/store.png" alt="Store Screenshot" onerror="this.style.display='none'">
+                <span class="proj-thumb-fallback">🛍️</span>
+              </div>
+              <div class="proj-info"><h3>Store</h3><p>Store-Projekt in Python.</p><div class="stack">Python</div><div class="gh-hint">▣ GitHub ↗</div></div>
+            </a>
+          </div>
+          <div class="scroll-hint">← scroll →</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="flow-chevron">▼</div>
+
+    <!-- ============ TRY OUT ============ -->
+    <section id="tryout">
+      <div class="mac-window">
+        <div class="titlebar">
+          <div class="dot"></div><div class="dot"></div>
+          <div class="name">try-out.app</div><span class="step-tag">03</span>
+          <div class="spacer"></div>
+        </div>
+        <div class="window-body">
+          <div class="section-head"><h2>Try it out</h2></div>
+          <p style="color:var(--ink-dim); font-size:12.5px; margin-bottom:18px; line-height:1.7;">
+            Karte anklicken zum Aufklappen — echte Live-Vorschau, kein Screenshot.
+          </p>
+
+          <div class="tryout-grid">
+            <div class="tryout-card" onclick="toggleTryout(this)">
+              <div class="tryout-titlebar"><div class="dot"></div> onlineide <span class="hint">klicken</span></div>
+              <div class="tryout-preview">
+                <img class="tryout-thumb-img" src="assets/projects/onlineide.png" alt="OnlineIDE Vorschau" onerror="this.style.display='none'">
+                <div class="icon">🖥️</div>OnlineIDE — Live-Vorschau
+              </div>
+              <div class="tryout-frame-wrap">
+                <iframe data-src="https://rustamakhmedov.github.io/OnlineIDE/" loading="lazy" title="OnlineIDE Live Preview" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+              </div>
+              <div class="tryout-caption">OnlineIDE — <a href="https://rustamakhmedov.github.io/OnlineIDE/" target="_blank" rel="noopener" onclick="event.stopPropagation()">in neuem Tab öffnen</a></div>
+            </div>
+
+            <div class="tryout-card" onclick="toggleTryout(this)">
+              <div class="tryout-titlebar"><div class="dot"></div> drawingtool.wasm <span class="hint">klicken</span></div>
+              <div class="tryout-preview">
+                <img class="tryout-thumb-img" src="assets/projects/drawingtool.png" alt="DrawingTool Vorschau" onerror="this.style.display='none'">
+                <div class="icon">🎨</div>DrawingTool — WASM-Vorschau
+              </div>
+              <div class="tryout-frame-wrap">
+                <iframe data-src="assets/drawingtool/index.html" loading="lazy" title="DrawingTool Live Preview" sandbox="allow-scripts allow-same-origin"></iframe>
+                <div class="tryout-placeholder-full"><div class="icon">🎨</div>WASM-Build hier einbetten<br>(Emscripten-Export als .html/.js/.wasm)</div>
+              </div>
+              <div class="tryout-caption">DrawingTool (C++/raylib)</div>
+            </div>
+
+            <div class="tryout-card" onclick="toggleTryout(this)">
+              <div class="tryout-titlebar"><div class="dot"></div> arkanoid.wasm <span class="hint">klicken</span></div>
+              <div class="tryout-preview">
+                <img class="tryout-thumb-img" src="assets/projects/arkanoid.png" alt="Arkanoid Vorschau" onerror="this.style.display='none'">
+                <div class="icon">🧱</div>Arkanoid — WASM-Vorschau
+              </div>
+              <div class="tryout-frame-wrap">
+                <iframe data-src="assets/arkanoid/index.html" loading="lazy" title="Arkanoid Live Preview" sandbox="allow-scripts allow-same-origin allow-pointer-lock"></iframe>
+              </div>
+              <div class="tryout-caption">Arkanoid (Python/Pygame)</div>
+            </div>
+
+            <div class="tryout-card" onclick="toggleTryout(this)">
+              <div class="tryout-titlebar"><div class="dot"></div> sudoku <span class="hint">klicken</span></div>
+              <div class="tryout-preview">
+                <img class="tryout-thumb-img" src="assets/projects/sudoku.png" alt="Sudoku Vorschau" onerror="this.style.display='none'">
+                <div class="icon">🔢</div>Sudoku — Live-Vorschau
+              </div>
+              <div class="tryout-frame-wrap">
+                <iframe data-src="https://rustamakhmedov.github.io/Sudoku/" loading="lazy" title="Sudoku Live Preview" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+              </div>
+              <div class="tryout-caption">Sudoku — <a href="https://rustamakhmedov.github.io/Sudoku/" target="_blank" rel="noopener" onclick="event.stopPropagation()">in neuem Tab öffnen</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="flow-chevron">▼</div>
+
+    <!-- ============ KONTAKT + INFO (nebeneinander) ============ -->
+    <section id="contact">
+      <div class="bento">
+        <div class="mac-window" style="margin-top:0;">
+          <div class="titlebar"><div class="dot"></div><div class="dot"></div><div class="name">get-in-touch.app</div><span class="step-tag">04</span><div class="spacer"></div></div>
+          <div class="window-body">
+            <div class="contact-box">
+              <div class="eyebrow">CONNECT</div>
+              <h2 style="font-size:18px; color:var(--violet-glow); margin-bottom:10px;">Lass uns reden.</h2>
+              <p>Offen für Praktika, Projekte und alles rund um IT-Security & Development.</p>
+              <div class="links">
+                <a class="link-btn" href="https://github.com/rustamakhmedov" target="_blank" rel="noopener">▣ GitHub</a>
+                <a class="link-btn" href="https://www.linkedin.com/in/rakhmedov" target="_blank" rel="noopener">▣ LinkedIn</a>
+                <a class="link-btn" href="mailto:rustamakhmedov923@gmail.com">▣ E-Mail</a>
+                <a class="link-btn" href="assets/lebenslauf/lebenslauf.pdf" download="Rustam_Lebenslauf.pdf">▣ Lebenslauf</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mac-window" style="margin-top:0;">
+          <div class="titlebar"><div class="dot"></div><div class="dot"></div><div class="name">get info</div><div class="spacer"></div></div>
+          <div class="window-body">
+            <div class="info-rows">
+              <div class="info-row"><span class="k">STANDORT</span><span class="v">Steiermark, AT</span></div>
+              <div class="info-row"><span class="k">STATUS</span><span class="v on">● verfügbar für Praktika</span></div>
+              <div class="info-row"><span class="k">FOKUS</span><span class="v">Software Development</span></div>
+              <div class="info-row"><span class="k">SCHULE</span><span class="v">HTL Pinkafeld</span></div>
+              <div class="info-row"><span class="k">SPRACHEN</span><span class="v">DE · EN · RU</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ============ DESKTOP-ICON-DOCK ============ -->
+  <nav class="dock">
+    <a href="#about"><span class="ico">👤</span>About</a>
+    <a href="#projects"><span class="ico">📁</span>Projects</a>
+    <a href="#tryout"><span class="ico">🖥️</span>Try&nbsp;Out</a>
+    <a href="#contact"><span class="ico">✉️</span>Contact</a>
+
+    <!-- ============ Cat Mascot Animation ============ -->
+    <div class="claude-mascot-wrap">
+      <div class="claude-track">
+        <div class="claude-mover">
+          <div class="claude-flip">
+            <div class="claude-bob">
+              <div class="claude-sprite" id="claude-sprite" data-face="normal"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============ CAT MASCOT ============ -->
+    <div class="cat-mascot-wrap">
+      <div class="cat-speech-bubble" id="cat-speech"></div>
+      <div class="cat-mascot-sprite idle" id="cat-sprite"></div>
+    </div>
+  </nav>
+
+</div>
+
+<footer>© 2026 RUSTAM — BUILT ON HOLYC — MADE ON A ONE-BIT DREAM</footer>
+
+</body>
+</html>
+
+

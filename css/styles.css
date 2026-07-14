@@ -1,0 +1,715 @@
+﻿:root{
+    --void:#0a0710;
+    --void-2:#120b1c;
+    --panel:#161022;
+    --chrome-dim:#3a2f4d;
+    --violet:#6d28d9;
+    --violet-bright:#a855f7;
+    --violet-glow:#c084fc;
+    --ink:#e8e3f0;
+    --ink-dim:#9c8fb5;
+    --line:#2e2440;
+    --claude-orange:#d97757;
+    --claude-orange-dim:#b25f45;
+    --mono:'JetBrains Mono', monospace;
+    --pixel:'Silkscreen', monospace;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  html{scroll-behavior:smooth;}
+
+  /* ============ RETRO CUSTOM CURSOR (eigener 1-bit Pixel-Pointer) ============ */
+  html, body{
+    cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%20shape-rendering%3D%22crispEdges%22%3E%3Crect%20x%3D%220%22%20y%3D%2230%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%222%22%20y%3D%220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%222%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%222%22%20y%3D%2230%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%224%22%20y%3D%220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%224%22%20y%3D%222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%224%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%224%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%226%22%20y%3D%222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%226%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%226%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%228%22%20y%3D%224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%228%22%20y%3D%226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%228%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%228%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2210%22%20y%3D%226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2210%22%20y%3D%228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2230%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2212%22%20y%3D%228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2230%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2232%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2232%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2232%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2230%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2232%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2220%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2220%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2220%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2222%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2222%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23a855f7%22/%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%220%22%20y%3D%222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%220%22%20y%3D%224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%220%22%20y%3D%226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%220%22%20y%3D%228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%220%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%220%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%220%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%220%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%220%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%220%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%220%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%220%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%220%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%220%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%222%22%20y%3D%222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%222%22%20y%3D%226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%222%22%20y%3D%228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%222%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%222%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%222%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%222%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%222%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%222%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%222%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%222%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%222%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%224%22%20y%3D%226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%224%22%20y%3D%228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%224%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%224%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%224%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%224%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%224%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%224%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%224%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%224%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%226%22%20y%3D%226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%226%22%20y%3D%228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%226%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%226%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%226%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%226%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%226%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%226%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%226%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%228%22%20y%3D%228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%228%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%228%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%228%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%228%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%228%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%228%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%228%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2230%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2230%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23e8e3f0%22/%3E%3C/svg%3E") 2 2, auto;
+  }
+  a, button, .tag, .link-btn, .proj-card, .tryout-card, .dock a,
+  .menu > button, .menu-drop a, .menu-drop button, .holyc-badge,
+  [onclick], summary, .lang-badge{
+    cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%20shape-rendering%3D%22crispEdges%22%3E%3Crect%20x%3D%220%22%20y%3D%2230%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%222%22%20y%3D%220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%222%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%222%22%20y%3D%2230%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%224%22%20y%3D%220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%224%22%20y%3D%222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%224%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%224%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%226%22%20y%3D%222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%226%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%226%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%228%22%20y%3D%224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%228%22%20y%3D%226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%228%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%228%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2210%22%20y%3D%226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2210%22%20y%3D%228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2230%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2212%22%20y%3D%228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2230%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2232%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2232%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2232%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2230%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2232%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2220%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2220%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2220%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2222%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2222%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%236d28d9%22/%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%220%22%20y%3D%222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%220%22%20y%3D%224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%220%22%20y%3D%226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%220%22%20y%3D%228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%220%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%220%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%220%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%220%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%220%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%220%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%220%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%220%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%220%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%220%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%222%22%20y%3D%222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%222%22%20y%3D%224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%222%22%20y%3D%226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%222%22%20y%3D%228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%222%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%222%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%222%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%222%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%222%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%222%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%222%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%222%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%222%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%224%22%20y%3D%226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%224%22%20y%3D%228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%224%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%224%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%224%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%224%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%224%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%224%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%224%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%224%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%226%22%20y%3D%226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%226%22%20y%3D%228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%226%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%226%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%226%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%226%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%226%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%226%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%226%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%228%22%20y%3D%228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%228%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%228%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%228%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%228%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%228%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%228%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%228%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%228%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2210%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2212%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2222%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2224%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2214%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2226%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2214%22%20y%3D%2230%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2216%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2228%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2216%22%20y%3D%2230%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2218%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3Crect%20x%3D%2220%22%20y%3D%2220%22%20width%3D%222%22%20height%3D%222%22%20fill%3D%22%23c084fc%22/%3E%3C/svg%3E") 2 2, pointer;
+  }
+
+  body{
+    background:var(--void);
+    color:var(--ink);
+    font-family:var(--mono);
+    overflow-x:hidden;
+    position:relative;
+    min-height:100vh;
+  }
+
+  /* ============ WALLPAPER: klassisches Mac-Punktmuster, langsam driftend ============ */
+  .wallpaper{
+    position:fixed; inset:0; z-index:0;
+    background-image:radial-gradient(rgba(168,85,247,0.16) 1px, transparent 1px);
+    background-size:26px 26px;
+    animation:driftpattern 60s linear infinite;
+    opacity:.5;
+  }
+  @keyframes driftpattern{
+    from{background-position:0 0;}
+    to{background-position:520px 260px;}
+  }
+  body::after{
+    content:"";
+    position:fixed; inset:0; z-index:0;
+    background:radial-gradient(ellipse at 50% 0%, rgba(109,40,217,0.16), transparent 60%);
+    pointer-events:none;
+  }
+  /* CRT-Scanlines */
+  .scanlines{
+    position:fixed; inset:0; z-index:999;
+    background:repeating-linear-gradient(0deg, rgba(168,85,247,0.025) 0px, rgba(168,85,247,0.025) 1px, transparent 1px, transparent 3px);
+    pointer-events:none;
+  }
+
+
+  /* ============ SCROLL-PROGRESS ("SYSTEM LOAD") ============ */
+  #scrollbar-track{
+    position:fixed; top:0; left:0; right:0; height:3px; z-index:1001;
+    background:var(--void-2);
+  }
+  #scrollbar-fill{
+    height:100%; width:0%;
+    background:linear-gradient(90deg, var(--violet), var(--violet-glow));
+    box-shadow:0 0 10px rgba(192,132,252,.8);
+  }
+
+  /* ============ FLOATING PIXEL-ART ICONS (Desktop-Deko) ============ */
+  .pixel-icons{
+    position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+  }
+  .pixel-icons svg{
+    position:absolute;
+    shape-rendering:crispEdges;
+    opacity:.16;
+    filter:drop-shadow(0 0 6px rgba(192,132,252,.25));
+  }
+  .pi-1{ top:12%; left:6%;  width:46px; animation:float1 22s ease-in-out infinite; }
+  .pi-2{ top:65%; left:88%; width:38px; animation:float2 26s ease-in-out infinite; }
+  .pi-3{ top:80%; left:12%; width:42px; animation:float3 19s ease-in-out infinite; }
+  .pi-4{ top:22%; left:90%; width:34px; animation:float1 24s ease-in-out infinite reverse; }
+  .pi-5{ top:45%; left:3%;  width:30px; animation:float2 30s ease-in-out infinite; }
+  @keyframes float1{
+    0%,100%{ transform:translateY(0) rotate(0deg); }
+    50%{ transform:translateY(-22px) rotate(4deg); }
+  }
+  @keyframes float2{
+    0%,100%{ transform:translateY(0) rotate(0deg); }
+    50%{ transform:translateY(18px) rotate(-5deg); }
+  }
+  @keyframes float3{
+    0%,100%{ transform:translate(0,0) rotate(0deg); }
+    50%{ transform:translate(10px,-14px) rotate(3deg); }
+  }
+
+  /* Sprachen-Badges — auf derselben Ebene/Container wie die Pixel-Icons, garantiert renderbar (kein externes Icon-Font nötig) */
+  .lang-badge{
+    position:absolute;
+    font-family:var(--pixel); font-weight:700;
+    color:var(--violet-bright);
+    border:2px solid var(--violet-bright);
+    padding:5px 9px;
+    opacity:.16;
+    filter:drop-shadow(0 0 6px rgba(192,132,252,.25));
+    white-space:nowrap;
+  }
+  .lb-cpp{  top:9%;  left:20%; font-size:15px; animation:float2 28s ease-in-out infinite; }
+  .lb-java{ top:68%; left:22%; font-size:13px; animation:float3 24s ease-in-out infinite; }
+  .lb-py{   top:16%; left:66%; font-size:14px; animation:float1 26s ease-in-out infinite; }
+  .lb-js{   top:58%; left:68%; font-size:13px; animation:float2 20s ease-in-out infinite reverse; }
+  .lb-cs{   top:36%; left:42%; font-size:12px; animation:float3 32s ease-in-out infinite; }
+  .lb-sql{  top:84%; left:52%; font-size:12px; animation:float1 23s ease-in-out infinite reverse; }
+  @media (max-width:880px){ .lang-badge{ display:none; } }
+
+  /* ============ BOOT SCREEN ============ */
+  #boot{
+    position:fixed; inset:0; background:var(--void);
+    z-index:10000;
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    gap:22px;
+    transition:opacity .6s ease, visibility .6s ease;
+  }
+  #boot.hidden{opacity:0; visibility:hidden; pointer-events:none;}
+  .happy-mac{
+    width:72px; height:88px;
+    border:3px solid var(--violet-glow);
+    border-radius:6px;
+    position:relative;
+    animation:bootpop .5s ease;
+    box-shadow:0 0 24px rgba(192,132,252,0.35);
+  }
+  .happy-mac::before{
+    content:"";
+    position:absolute; top:10px; left:8px; right:8px; bottom:26px;
+    border:2px solid var(--violet-glow);
+    background:linear-gradient(180deg, rgba(168,85,247,.15), transparent);
+  }
+  .happy-mac::after{
+    content:"";
+    position:absolute; bottom:8px; left:14px; right:14px; height:2px;
+    background:var(--violet-glow);
+  }
+  @keyframes bootpop{
+    0%{transform:scale(0.3); opacity:0;}
+    60%{transform:scale(1.08); opacity:1;}
+    100%{transform:scale(1);}
+  }
+  .boot-text{
+    font-family:var(--pixel); font-size:13px; letter-spacing:1px;
+    color:var(--violet-glow); text-shadow:0 0 8px rgba(192,132,252,.6);
+  }
+
+  /* ============ MENU BAR (funktional) ============ */
+  .menubar{
+    position:sticky; top:0; z-index:500;
+    background:var(--panel);
+    border-bottom:2px solid var(--violet);
+    display:flex; align-items:center;
+    height:34px;
+    padding:0 14px;
+    gap:4px;
+    font-family:var(--pixel);
+    font-size:12px;
+    color:var(--ink);
+  }
+  .brand-group{ display:flex; align-items:center; gap:10px; margin-right:auto; }
+  .brand{
+    color:var(--violet-glow);
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand::before{ content:"◆"; color:var(--violet-bright); }
+
+  .holyc-badge{
+    font-family:var(--pixel); font-size:9px;
+    border:1px solid var(--violet); color:var(--violet-glow);
+    padding:3px 8px; letter-spacing:.5px; cursor:default;
+    display:flex; align-items:center; gap:4px;
+    background:var(--void-2);
+    animation:holyglow 3.5s ease-in-out infinite;
+  }
+  .holyc-badge .prompt{ color:var(--violet-bright); }
+  .holyc-badge .holyc-logo{ height:16px; width:auto; display:block; image-rendering:-webkit-optimize-contrast; filter:drop-shadow(0 0 4px rgba(192,132,252,.7)); }
+  @keyframes holyglow{
+    0%,100%{ box-shadow:0 0 0 rgba(192,132,252,0); }
+    50%{ box-shadow:0 0 10px rgba(192,132,252,.55); }
+  }
+
+  .menu{ position:relative; }
+  .menu > button{
+    background:none; border:0; color:var(--ink); font-family:var(--pixel); font-size:12px;
+    padding:8px 12px; cursor:pointer; opacity:.7;
+  }
+  .menu > button:hover, .menu.open > button{ opacity:1; background:var(--violet); color:var(--void); }
+
+  .menu-drop{
+    position:absolute; top:100%; left:0;
+    min-width:210px;
+    background:var(--panel);
+    border:2px solid var(--violet);
+    box-shadow:0 12px 30px rgba(0,0,0,.6);
+    display:none;
+    flex-direction:column;
+    padding:4px 0;
+    z-index:600;
+  }
+  .menu.open .menu-drop{ display:flex; }
+  .menu-drop a, .menu-drop button{
+    display:flex; align-items:center; gap:8px;
+    text-align:left; background:none; border:0; color:var(--ink);
+    font-family:var(--mono); font-size:12.5px;
+    padding:9px 14px; text-decoration:none; cursor:pointer;
+  }
+  .menu-drop a:hover, .menu-drop button:hover{ background:var(--violet); color:#fff; }
+  .menu-drop .divider{ height:1px; background:var(--line); margin:4px 0; }
+
+  .clock{ opacity:.8; border-left:1px solid var(--line); padding:0 14px 0 14px; font-size:12px;}
+
+  /* ============ LAYOUT SHELL ============ */
+  .shell{
+    position:relative; z-index:2;
+    max-width:1160px;
+    margin:0 auto;
+    padding:0 20px;
+    display:grid;
+    grid-template-columns:1fr 128px;
+    gap:30px;
+  }
+  @media (max-width:880px){
+    .shell{ grid-template-columns:1fr; }
+  }
+
+  .main-col{ min-width:0; padding-bottom:40px; }
+
+  /* Desktop-Icon-Dock (rechte Spalte, wie echte Mac-Desktop-Icons) */
+  .dock{
+    position:sticky; top:56px;
+    align-self:start;
+    display:flex; flex-direction:column; gap:22px;
+    padding-top:40px;
+  }
+  .dock a{
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    text-decoration:none; color:var(--ink-dim);
+    font-family:var(--pixel); font-size:9.5px;
+    padding:8px 4px; text-align:center;
+  }
+  .dock a .ico{
+    width:34px; height:34px;
+    border:2px solid var(--chrome-dim);
+    background:var(--void-2);
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px;
+    transition:transform .25s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .dock a:hover{ color:var(--violet-glow); }
+  .dock a:hover .ico{ border-color:var(--violet-bright); background:var(--violet); box-shadow:0 0 14px rgba(168,85,247,.5); transform:translateY(-4px) scale(1.08); }
+
+  @media (max-width:880px){ .dock{ display:none; } }
+
+  /* ============ CAT MASCOT - CIRCLED AREA PLACEMENT ============ */
+  .cat-mascot-wrap{
+    position:fixed;
+    bottom:80px;
+    right:60px;
+    width:300px;
+    height:280px;
+    cursor:pointer;
+    user-select:none;
+    pointer-events:all;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    z-index:10;
+  }
+  .cat-mascot-sprite{
+    width:180px; 
+    height:180px;
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center bottom;
+    background-color:transparent;
+    image-rendering:pixelated;
+    image-rendering:crisp-edges;
+    filter:drop-shadow(0 4px 8px rgba(0,0,0,.4));
+    transition:transform 0.1s ease;
+  }
+  .cat-mascot-sprite.scale-up{
+    transform:scale(1.12);
+  }
+  /* IDLE Animation: using individual images */
+  .cat-mascot-sprite.idle{
+    animation:cat-idle 3s steps(6) infinite;
+  }
+  @keyframes cat-idle{
+    0%{ background-image:url('../assets/mascot/idle_1.png'); }
+    16.67%{ background-image:url('../assets/mascot/idle_2.png'); }
+    33.33%{ background-image:url('../assets/mascot/idle_3.png'); }
+    50%{ background-image:url('../assets/mascot/idle_4.png'); }
+    66.67%{ background-image:url('../assets/mascot/idle_5.png'); }
+    83.33%{ background-image:url('../assets/mascot/idle_6.png'); }
+    100%{ background-image:url('../assets/mascot/idle_1.png'); }
+  }
+  /* RUN Animation: with horizontal movement */
+  .cat-mascot-sprite.run{
+    animation:cat-run 3s ease-in-out infinite;
+  }
+  @keyframes cat-run{
+    0%{ background-image:url('../assets/mascot/run_1.png'); transform:translateX(0); }
+    12.5%{ background-image:url('../assets/mascot/run_2.png'); transform:translateX(40px); }
+    25%{ background-image:url('../assets/mascot/run_3.png'); transform:translateX(80px); }
+    37.5%{ background-image:url('../assets/mascot/run_4.png'); transform:translateX(120px); }
+    50%{ background-image:url('../assets/mascot/run_5.png'); transform:translateX(140px) scaleX(-1); }
+    62.5%{ background-image:url('../assets/mascot/run_4.png'); transform:translateX(100px) scaleX(-1); }
+    75%{ background-image:url('../assets/mascot/run_3.png'); transform:translateX(60px) scaleX(-1); }
+    87.5%{ background-image:url('../assets/mascot/run_2.png'); transform:translateX(20px) scaleX(-1); }
+    100%{ background-image:url('../assets/mascot/run_1.png'); transform:translateX(0) scaleX(-1); }
+  }
+  /* PURR Animation: 4 frames */
+  .cat-mascot-sprite.purr{
+    animation:cat-purr 2s steps(4) infinite;
+  }
+  @keyframes cat-purr{
+    0%{ background-image:url('../assets/mascot/purr_1.png'); }
+    25%{ background-image:url('../assets/mascot/purr_2.png'); }
+    50%{ background-image:url('../assets/mascot/purr_3.png'); }
+    75%{ background-image:url('../assets/mascot/purr_4.png'); }
+    100%{ background-image:url('../assets/mascot/purr_1.png'); }
+  }
+  /* BITE Animation: 5 frames */
+  .cat-mascot-sprite.bite{
+    animation:cat-bite 1.2s steps(5) infinite;
+  }
+  @keyframes cat-bite{
+    0%{ background-image:url('../assets/mascot/bite_1.png'); }
+    20%{ background-image:url('../assets/mascot/bite_2.png'); }
+    40%{ background-image:url('../assets/mascot/bite_3.png'); }
+    60%{ background-image:url('../assets/mascot/bite_4.png'); }
+    80%{ background-image:url('../assets/mascot/bite_5.png'); }
+    100%{ background-image:url('../assets/mascot/bite_1.png'); }
+  }
+  
+  /* Sprechblase: zeigt durchwechselnde Sprueche, solange die Katze idlet */
+  .cat-speech-bubble{
+    position:absolute;
+    top:6px;
+    left:50%;
+    transform:translate(-50%, 6px) scale(.92);
+    width:max-content;
+    max-width:160px;
+    background:var(--panel);
+    border:2px solid var(--violet-bright);
+    color:var(--ink);
+    font-family:var(--pixel);
+    font-size:9.5px;
+    line-height:1.6;
+    letter-spacing:.2px;
+    padding:8px 10px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.5), 0 0 12px rgba(168,85,247,.35);
+    opacity:0;
+    transition:opacity .25s ease, transform .25s ease;
+    pointer-events:none;
+    z-index:11;
+  }
+  .cat-speech-bubble::before{
+    content:"";
+    position:absolute;
+    bottom:-9px;
+    left:50%;
+    transform:translateX(-50%);
+    width:0; height:0;
+    border-left:7px solid transparent;
+    border-right:7px solid transparent;
+    border-top:9px solid var(--violet-bright);
+  }
+  .cat-speech-bubble::after{
+    content:"";
+    position:absolute;
+    bottom:-6px;
+    left:50%;
+    transform:translateX(-50%);
+    width:0; height:0;
+    border-left:5.5px solid transparent;
+    border-right:5.5px solid transparent;
+    border-top:7px solid var(--panel);
+  }
+  .cat-speech-bubble.visible{
+    opacity:1;
+    transform:translate(-50%, 0) scale(1);
+  }
+
+  @media (max-width:880px){
+    .cat-mascot-wrap{ display:none; }
+  }
+
+  /* ============ CLAUDE-MASKOTTCHEN "CLAWD" (pixel-art, zentriert im freien Bereich der Sidebar) ============ */
+  .claude-mascot-wrap{
+    position:relative;
+    height:120px;
+    margin-top:120px;
+    overflow:visible;
+    display:block;
+    /* zentriert den Track horizontal im freien Bereich */
+    margin-left:0; margin-right:0;
+  }
+  .claude-track{ position:relative; width:100%; height:100%; }
+  .claude-mover{
+    position:absolute; left:50%; bottom:8px;
+    transform:translateX(-50%);
+    animation:claudeWalkX 7s ease-in-out infinite;
+  }
+  .claude-flip{
+    animation:claudeFlip 7s ease-in-out infinite;
+    transform-origin:center;
+  }
+  .claude-bob{ animation:claudebob .5s steps(2) infinite alternate; }
+  .claude-sprite svg{ display:block; filter:drop-shadow(0 6px 8px rgba(0,0,0,.45)); shape-rendering:crispEdges; }
+  .claude-sprite{ cursor:pointer; display:inline-block; }
+  /* Tail swing for the cat */
+  .claude-sprite .tail{ transform-box:fill-box; transform-origin:right center; animation:tailSwing 1.2s ease-in-out infinite; }
+  @keyframes tailSwing{ 0%{ transform:rotate(-6deg);} 50%{ transform:rotate(6deg);} 100%{ transform:rotate(-6deg);} }
+  /* Beine: zwei Frames, die sich abwechseln → Lauf-Zyklus (pixel-style) */
+  .claude-sprite .legs-a{ animation:claudeLegA .5s steps(1) infinite; }
+  .claude-sprite .legs-b{ animation:claudeLegB .5s steps(1) infinite; }
+  @keyframes claudeLegA{ 0%,49%{ opacity:1; transform:translateY(0);} 50%,100%{ opacity:0; transform:translateY(2px);} }
+  @keyframes claudeLegB{ 0%,49%{ opacity:0; transform:translateY(2px);} 50%,100%{ opacity:1; transform:translateY(0);} }
+  /* Pupillen-Leichtbewegung */
+  .claude-sprite .pupil{ transform-box:fill-box; transform-origin:center; animation:pupilMove 3s ease-in-out infinite; }
+  @keyframes pupilMove{ 0%{ transform:translateX(0);} 25%{ transform:translateX(-1px);} 50%{ transform:translateX(0);} 75%{ transform:translateX(1px);} 100%{ transform:translateX(0);} }
+  .claude-sprite.pet{ transform:scale(1.06); transition:transform .18s ease; }
+  .claude-sprite.hit{ animation:claudeHit .35s ease; }
+  @keyframes claudeHit{ 0%{ transform:translateY(0); } 30%{ transform:translateY(6px) rotate(6deg); } 100%{ transform:translateY(0); } }
+  .claude-sprite .legs-a, .claude-sprite .legs-b{ transform-origin:center bottom; }
+  .claude-mover:active{ /* prevent pointer interactions moving page */ pointer-events:auto; }
+
+  /* Beine: zwei Frames, die sich abwechseln → Lauf-Zyklus wie beim echten Claude-Code-Maskottchen */
+  .claude-sprite .legs-a{ animation:claudeLegA .5s steps(1) infinite; }
+  .claude-sprite .legs-b{ animation:claudeLegB .5s steps(1) infinite; }
+  @keyframes claudeLegA{ 0%,49%{ opacity:1; } 50%,100%{ opacity:0; } }
+  @keyframes claudeLegB{ 0%,49%{ opacity:0; } 50%,100%{ opacity:1; } }
+
+  /* Gesichtsausdrücke: nur der aktive .eyes-Layer wird gezeigt */
+  .claude-sprite .eyes{ opacity:0; }
+  .claude-sprite[data-face="normal"] .eyes-normal,
+  .claude-sprite[data-face="blink"] .eyes-blink,
+  .claude-sprite[data-face="happy"] .eyes-happy,
+  .claude-sprite[data-face="surprised"] .eyes-surprised,
+  .claude-sprite[data-face="wink"] .eyes-wink{ opacity:1; }
+
+  @keyframes claudeWalkX{
+    0%{ transform:translateX(calc(-50% + 0px)); }
+    50%{ transform:translateX(calc(-50% + 46px)); }
+    100%{ transform:translateX(calc(-50% + 0px)); }
+  }
+  @keyframes claudeFlip{
+    0%{ transform:scaleX(1); }
+    49%{ transform:scaleX(1); }
+    51%{ transform:scaleX(-1); }
+    99%{ transform:scaleX(-1); }
+    100%{ transform:scaleX(1); }
+  }
+  @keyframes claudebob{
+    from{ transform:translateY(0); }
+    to{ transform:translateY(-2px); }
+  }
+  @media (max-width:880px){ .claude-mascot-wrap{ display:none; } }
+
+  /* ============ WINDOW CHROME ============ */
+  .mac-window{
+    background:var(--panel);
+    border:2px solid var(--violet);
+    border-radius:8px;
+    box-shadow:0 20px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(168,85,247,.08);
+    overflow:hidden;
+    opacity:0; transform:translateY(28px);
+    transition:opacity .7s ease, transform .7s ease;
+    margin-top:40px;
+  }
+  .mac-window.in-view{ opacity:1; transform:translateY(0); }
+  .mac-window:first-child{ margin-top:32px; }
+
+  .titlebar{
+    background:repeating-linear-gradient(180deg, var(--chrome-dim) 0px, var(--chrome-dim) 1px, var(--void-2) 1px, var(--void-2) 3px);
+    border-bottom:2px solid var(--violet);
+    display:flex; align-items:center;
+    padding:7px 10px;
+    gap:8px;
+  }
+  .titlebar .dot{ width:11px; height:11px; border-radius:50%; border:1.5px solid var(--violet-glow); background:var(--void); animation:dotpulse 3s ease-in-out infinite; }
+  .titlebar .dot:nth-child(2){ animation-delay:.5s; }
+  @keyframes dotpulse{
+    0%,100%{ box-shadow:0 0 0 rgba(192,132,252,0); }
+    50%{ box-shadow:0 0 6px rgba(192,132,252,.8); }
+  }
+  .titlebar .name{ margin:0 auto; background:var(--panel); padding:1px 10px; font-family:var(--pixel); font-size:11px; color:var(--violet-glow); }
+  .titlebar .spacer{ width:11px; }
+
+  .window-body{ padding:34px; }
+
+  .eyebrow{ font-family:var(--pixel); font-size:11px; color:var(--violet-bright); letter-spacing:2px; margin-bottom:10px; }
+  h1,h2,h3{ font-family:var(--pixel); font-weight:400; line-height:1.4; }
+  .section-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:22px; flex-wrap:wrap; gap:8px; }
+  .section-head h2{ font-size:15px; color:var(--ink); }
+
+  /* ============ ABOUT ============ */
+  .about-grid{ display:grid; grid-template-columns:200px 1fr; gap:36px; align-items:start; }
+  @media (max-width:640px){ .about-grid{ grid-template-columns:1fr; } }
+
+  .photo-slot{
+    width:100%; aspect-ratio:1/1;
+    border:3px dashed var(--chrome-dim);
+    background:var(--void-2);
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    font-family:var(--pixel); font-size:11px; color:var(--ink-dim); padding:14px;
+  }
+
+  h1.title{ font-size:26px; color:var(--violet-glow); text-shadow:0 0 14px rgba(192,132,252,.4); margin-bottom:6px; }
+  h1.title::after{ content:""; }
+
+  .typewriter-line{
+    font-family:var(--pixel); font-size:12px; color:var(--violet-bright);
+    margin-bottom:18px; min-height:16px;
+  }
+  .typewriter-line::before{ content:"> "; opacity:.7; }
+  .typewriter-line .cursor{ animation:blink 1s step-end infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .about-text p{ font-size:14.5px; line-height:1.9; color:var(--ink); margin-bottom:14px; }
+  .about-text p .hl{ color:var(--violet-glow); }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .tag{ font-family:var(--pixel); font-size:10px; border:1px solid var(--violet); color:var(--violet-glow); padding:5px 9px; transition:transform .2s ease, background .2s ease, color .2s ease; }
+  .tag:hover{ transform:translateY(-3px); background:var(--violet); color:#fff; }
+
+  /* Code-Fenster mit Tipp-Animation */
+  .code-window{
+    margin-top:22px;
+    border:2px solid var(--line);
+    background:#050308;
+  }
+  .code-titlebar{ background:var(--chrome-dim); display:flex; align-items:center; gap:8px; padding:6px 10px; font-family:var(--pixel); font-size:10px; color:var(--ink); }
+  .code-titlebar .dot{ width:8px; height:8px; border-radius:50%; border:1px solid var(--violet-glow); }
+  .code-body{ padding:16px 18px; font-family:var(--mono); font-size:12.5px; line-height:1.7; min-height:130px; white-space:pre-wrap; color:#c9bfe0; }
+  .code-body .c-kw{ color:var(--violet-bright); }
+  .code-body .c-str{ color:#7dff8a; }
+  .code-body .c-com{ color:var(--ink-dim); }
+  .code-body .c-cursor{ animation:blink 1s step-end infinite; color:var(--violet-glow); }
+
+  /* ============ PROJECTS ============ */
+  .finder-scroll{ display:flex; gap:20px; overflow-x:auto; padding:8px 4px 20px 4px; scroll-snap-type:x mandatory; }
+  .finder-scroll::-webkit-scrollbar{ height:10px; }
+  .finder-scroll::-webkit-scrollbar-track{ background:var(--void-2); }
+  .finder-scroll::-webkit-scrollbar-thumb{ background:var(--violet); border:2px solid var(--void-2); }
+
+  .proj-card{ scroll-snap-align:start; flex:0 0 260px; border:2px solid var(--line); background:var(--void-2); transition:border-color .25s ease, transform .25s ease, box-shadow .25s ease; cursor:pointer; text-decoration:none; color:inherit; display:block; }
+  .proj-card:hover{ border-color:var(--violet-bright); transform:scale(1.035); box-shadow:0 10px 26px rgba(0,0,0,.4); }
+  .proj-thumb{ height:150px; background:linear-gradient(135deg, var(--violet) 0%, var(--void-2) 100%); display:flex; align-items:center; justify-content:center; font-size:30px; border-bottom:2px solid var(--line); position:relative; overflow:hidden; }
+  .proj-thumb-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .proj-thumb-fallback{ position:relative; z-index:1; }
+  /* Ersetze .proj-thumb Inhalt mit echtem Screenshot: <img src="project.png"> */
+  .proj-info{ padding:14px; }
+  .proj-info h3{ font-size:12px; color:var(--violet-glow); margin-bottom:6px; }
+  .proj-info p{ font-size:12px; color:var(--ink-dim); line-height:1.6; }
+  .proj-info .stack{ margin-top:8px; font-size:10px; color:var(--violet-bright); font-family:var(--pixel); }
+  .proj-info .gh-hint{ margin-top:10px; font-size:10px; color:var(--ink-dim); display:flex; align-items:center; gap:5px; }
+  .proj-card:hover .gh-hint{ color:var(--violet-glow); }
+  .scroll-hint{ font-size:11px; color:var(--ink-dim); text-align:center; margin-top:6px; font-family:var(--pixel); }
+
+  /* ============ TRY OUT — Karten im Finder-Stil, Klick = aufklappen ============ */
+  .tryout-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:20px; align-items:start; }
+  .tryout-card{
+    border:2px solid var(--line); background:var(--void-2);
+    cursor:pointer;
+    transition:border-color .25s ease, transform .25s ease, box-shadow .25s ease, grid-column .3s ease;
+  }
+  .tryout-card:hover{ border-color:var(--violet-bright); transform:scale(1.02); }
+  .tryout-card.expanded{ grid-column:1 / -1; border-color:var(--violet-bright); box-shadow:0 16px 40px rgba(0,0,0,.5); }
+
+  .tryout-titlebar{ background:var(--chrome-dim); display:flex; align-items:center; gap:8px; padding:6px 10px; font-family:var(--pixel); font-size:10px; color:var(--ink); }
+  .tryout-titlebar .dot{ width:8px; height:8px; border-radius:50%; border:1px solid var(--violet-glow); }
+  .tryout-titlebar .hint{ margin-left:auto; opacity:.6; font-size:9px; }
+
+  .tryout-preview{
+    height:130px;
+    position:relative;
+    overflow:hidden;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+    font-family:var(--pixel); font-size:10.5px; color:var(--ink-dim); text-align:center; padding:14px;
+    background:linear-gradient(135deg, var(--violet) 0%, var(--void-2) 100%);
+  }
+  .tryout-thumb-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .tryout-preview .icon{ position:relative; z-index:1; }
+  .tryout-preview .icon{ font-size:26px; }
+  .tryout-card.expanded .tryout-preview{ display:none; }
+
+  .tryout-frame-wrap{ display:none; background:#000; aspect-ratio:16/9; position:relative; overflow:hidden; }
+  .tryout-card.expanded .tryout-frame-wrap{ display:block; }
+  .tryout-frame-wrap iframe{ width:100%; height:100%; border:0; }
+  .tryout-placeholder-full{ width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; color:var(--ink-dim); font-family:var(--pixel); font-size:11px; text-align:center; padding:20px; }
+  .tryout-placeholder-full .icon{ font-size:30px; color:var(--violet-bright); }
+
+  .tryout-caption{ padding:10px 12px; font-size:11.5px; color:var(--ink-dim); }
+  .tryout-caption a{ color:var(--violet-glow); }
+
+  /* ============ CONTACT + INFO (nebeneinander statt gestapelt) ============ */
+  .bento{ display:grid; grid-template-columns:1.4fr 1fr; gap:24px; margin-top:40px; }
+  @media (max-width:760px){ .bento{ grid-template-columns:1fr; } }
+
+  .contact-box{ text-align:left; }
+  .contact-box p{ color:var(--ink-dim); font-size:13px; margin-bottom:22px; }
+  .links{ display:flex; flex-wrap:wrap; gap:12px; }
+  .link-btn{
+    display:flex; align-items:center; gap:8px;
+    border:2px solid var(--violet); color:var(--violet-glow); text-decoration:none;
+    font-family:var(--pixel); font-size:11px; padding:11px 16px; background:var(--void-2);
+    transition:background .2s ease, color .2s ease, box-shadow .2s ease;
+  }
+  .link-btn:hover{ background:var(--violet); color:var(--void); box-shadow:0 0 18px rgba(168,85,247,.5); }
+
+  .info-rows{ display:flex; flex-direction:column; gap:0; }
+  .info-row{ display:flex; justify-content:space-between; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); font-size:12px; }
+  .info-row:last-child{ border-bottom:0; }
+  .info-row .k{ color:var(--ink-dim); font-family:var(--pixel); font-size:9.5px; }
+  .info-row .v{ color:var(--ink); text-align:right; }
+  .info-row .v.on{ color:var(--violet-glow); }
+
+
+  /* ============ FLOW-RAIL: verbindet alle Sektionen zu einem Prozess ============ */
+  .main-col{ position:relative; }
+  .flow-rail{
+    position:absolute; left:-22px; top:6px; bottom:6px; width:2px;
+    background:var(--line);
+    z-index:1; pointer-events:none;
+  }
+  .flow-rail::before{
+    content:""; position:absolute; inset:0;
+    background:repeating-linear-gradient(180deg, var(--violet-bright) 0px, var(--violet-bright) 5px, transparent 5px, transparent 13px);
+    animation:railflow 1s linear infinite;
+    opacity:.65;
+  }
+  @keyframes railflow{ from{ background-position:0 0; } to{ background-position:0 -18px; } }
+  .flow-dot{
+    position:absolute; left:-27px; top:0; width:12px; height:12px; border-radius:50%;
+    background:var(--violet-glow);
+    box-shadow:0 0 14px 4px rgba(192,132,252,.65);
+    z-index:2; pointer-events:none;
+    transition:top .05s linear;
+  }
+  section{ position:relative; }
+  .step-tag{
+    position:absolute; left:-58px; top:42px;
+    font-family:var(--pixel); font-size:9px; color:var(--violet-bright);
+    opacity:.85; letter-spacing:1px;
+  }
+  @media (max-width:880px){ .flow-rail, .flow-dot, .step-tag{ display:none; } }
+
+  /* Verbindungs-Chevron zwischen den Fenstern (Prozess-Pfeil statt leerer Luecke) */
+  .flow-chevron{
+    text-align:center; color:var(--violet-bright); font-family:var(--pixel);
+    font-size:13px; margin:6px 0 -6px; opacity:.55;
+    animation:chevronpulse 2.2s ease-in-out infinite;
+  }
+  @keyframes chevronpulse{ 0%,100%{ opacity:.3; transform:translateY(0); } 50%{ opacity:.85; transform:translateY(4px); } }
+
+  /* ============ GESTAFFELTE REVEAL-ANIMATIONEN (lebendigeres Scrollen) ============ */
+  .mac-window{ transition:opacity .7s ease, transform .7s ease, filter .7s ease; filter:blur(2px); }
+  .mac-window.in-view{ filter:blur(0); }
+
+  .tags .tag{ opacity:0; transform:translateY(12px); transition:opacity .45s ease, transform .45s ease; }
+  .mac-window.in-view .tags .tag{ opacity:1; transform:translateY(0); }
+  .tags .tag:nth-child(1){ transition-delay:.05s; } .tags .tag:nth-child(2){ transition-delay:.1s; }
+  .tags .tag:nth-child(3){ transition-delay:.15s; } .tags .tag:nth-child(4){ transition-delay:.2s; }
+  .tags .tag:nth-child(5){ transition-delay:.25s; } .tags .tag:nth-child(6){ transition-delay:.3s; }
+
+  .proj-card, .tryout-card{ opacity:0; transform:translateY(26px) scale(.97); }
+  .mac-window.in-view .proj-card, .mac-window.in-view .tryout-card{ opacity:1; transform:translateY(0) scale(1); }
+  .finder-scroll .proj-card:nth-child(1){ transition-delay:.05s; }
+  .finder-scroll .proj-card:nth-child(2){ transition-delay:.12s; }
+  .finder-scroll .proj-card:nth-child(3){ transition-delay:.19s; }
+  .finder-scroll .proj-card:nth-child(4){ transition-delay:.26s; }
+  .finder-scroll .proj-card:nth-child(5){ transition-delay:.33s; }
+  .finder-scroll .proj-card:nth-child(6){ transition-delay:.40s; }
+  .finder-scroll .proj-card:nth-child(7){ transition-delay:.47s; }
+  .finder-scroll .proj-card:nth-child(8){ transition-delay:.54s; }
+  .finder-scroll .proj-card:nth-child(9){ transition-delay:.61s; }
+  .finder-scroll .proj-card:nth-child(10){ transition-delay:.68s; }
+  .tryout-grid .tryout-card:nth-child(1){ transition-delay:.05s; }
+  .tryout-grid .tryout-card:nth-child(2){ transition-delay:.13s; }
+  .tryout-grid .tryout-card:nth-child(3){ transition-delay:.21s; }
+
+  .info-row{ opacity:0; transform:translateX(16px); transition:opacity .45s ease, transform .45s ease; }
+  .mac-window.in-view .info-row{ opacity:1; transform:translateX(0); }
+  .info-row:nth-child(1){ transition-delay:.05s; } .info-row:nth-child(2){ transition-delay:.1s; }
+  .info-row:nth-child(3){ transition-delay:.15s; } .info-row:nth-child(4){ transition-delay:.2s; }
+  .info-row:nth-child(5){ transition-delay:.25s; }
+
+  .about-grid .photo-slot{ opacity:0; transform:translateX(-16px) rotate(-2deg); transition:opacity .6s ease, transform .6s ease; }
+  .mac-window.in-view .about-grid .photo-slot{ opacity:1; transform:translateX(0) rotate(0deg); }
+  .code-window{ opacity:0; transform:translateY(14px); transition:opacity .6s ease .2s, transform .6s ease .2s; }
+  .mac-window.in-view .code-window{ opacity:1; transform:translateY(0); }
+
+  footer{ position:relative; z-index:2; text-align:center; padding:40px 20px 60px; font-family:var(--pixel); font-size:10px; color:var(--chrome-dim); }

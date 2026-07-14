@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raylib WebAssembly Game</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        /* Der Container zwingt das Canvas in ein echtes 16:9-Verhältnis */
+        .game-container {
+            width: 95vw;
+            max-width: 1200px;
+            aspect-ratio: 16 / 9;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* WICHTIG:
+           Wir entfernen width: 100% !important und height: 100% !important,
+           sondern nutzen max-width und max-height mit object-fit!
+           Das zwingt den Browser, das Canvas proportional so zu stauchen,
+           dass es komplett sichtbar ist und nicht an den Seiten abgeschnitten wird.
+        */
+        canvas {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            width: auto !important;
+            height: auto !important;
+            border: 2px solid #333;
+            background-color: black;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            object-fit: contain; /* Sorgt dafür, dass das gesamte Bild im Rahmen bleibt */
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+    <canvas id="canvas" width="1920" height="1080" oncontextmenu="event.preventDefault()"></canvas>
+</div>
+
+<script>
+    var Module = {
+        preRun: [],
+        postRun: [],
+        canvas: (function() {
+            var canvas = document.getElementById('canvas');
+            canvas.addEventListener("webglcontextlost", function(e) {
+                alert('WebGL-Kontext verloren. Bitte lade die Seite neu.');
+                e.preventDefault();
+            }, false);
+            return canvas;
+        })(),
+        setCanvasSize: function(width, height) {
+            // Verhindert das Überschreiben der Auflösung durch Emscripten
+        }
+    };
+</script>
+
+<script async src="my_raylib_game.js"></script>
+
+</body>
+</html>

@@ -364,23 +364,35 @@
     if (!sprite || !runner) return;
 
     // ---- frame preloading -------------------------------------------------
-    // Nothing is shown until every frame is decoded. Half-loaded sprite sheets
-    // were the other reason the cat looked broken on slow connections.
+    // A state is never entered before all of its frames have decoded — showing
+    // a half-loaded set was the other reason the cat looked broken on slow
+    // connections. Idle loads first so the cat can appear and start breathing
+    // straight away, and the other three states stream in behind it.
     var images = {};
-    var pending = 0;
+    var loaded = {};
     var ready = false;
 
-    Object.keys(manifest.states).forEach(function (name) {
-      images[name] = manifest.states[name].frames.map(function (file) {
+    function preload(name, onDone) {
+      var frames = manifest.states[name].frames;
+      var pending = frames.length;
+      images[name] = frames.map(function (file) {
         var img = new Image();
-        pending++;
         var done = function () {
-          if (--pending === 0) start();
+          if (--pending > 0) return;
+          loaded[name] = true;
+          if (onDone) onDone();
         };
         img.addEventListener('load', done);
         img.addEventListener('error', done);
         img.src = manifest.basePath + file;
         return img;
+      });
+    }
+
+    preload('idle', function () {
+      start();
+      Object.keys(manifest.states).forEach(function (name) {
+        if (name !== 'idle') preload(name);
       });
     });
 
@@ -397,7 +409,7 @@
     var trackWidth = 0;
 
     function setState(next) {
-      if (state === next) return;
+      if (state === next || !loaded[next]) return;
       state = next;
       frame = 0;
       frameStart = 0;
@@ -406,7 +418,8 @@
     }
 
     function render() {
-      var img = images[state][frame];
+      var set = images[state];
+      var img = set && set[frame];
       if (img) sprite.style.backgroundImage = 'url("' + img.src + '")';
       sprite.style.setProperty('--facing', String(facing));
       runner.style.transform = 'translateX(' + x.toFixed(1) + 'px)';
@@ -433,7 +446,7 @@
     function endPatrol(now) {
       patrol = null;
       nextPatrolAt = now + 4000 + Math.random() * 5000;
-      setState(hovering ? 'purr' : 'idle');
+      setState(hovering && loaded.purr ? 'purr' : 'idle');
     }
 
     // ---- main loop --------------------------------------------------------
@@ -462,7 +475,7 @@
         x = patrol.from + (patrol.to - patrol.from) * t;
         runner.style.transform = 'translateX(' + x.toFixed(1) + 'px)';
         if (t >= 1) endPatrol(now);
-      } else if (state === 'idle' && !hovering && !biting && now >= nextPatrolAt) {
+      } else if (loaded.run && state === 'idle' && !hovering && !biting && now >= nextPatrolAt) {
         beginPatrol(now);
       }
 
@@ -473,7 +486,7 @@
       if (state !== 'bite') return;
       biting = false;
       frame = manifest.states.bite.frames.length - 1;
-      setState(hovering ? 'purr' : 'idle');
+      setState(hovering && loaded.purr ? 'purr' : 'idle');
     }
 
     function start() {
@@ -533,10 +546,11 @@
       // Only suppress the mouse default (text selection / image drag). Doing it
       // for touch as well would swallow a scroll that starts on the cat.
       if (event.pointerType === 'mouse') event.preventDefault();
+      purrTone();
+      if (!loaded.bite) return;
       biting = true;
       patrol = null;
       setState('bite');
-      purrTone();
       if (!running && !prefersReducedMotion.matches) {
         running = true;
         window.requestAnimationFrame(loop);

@@ -1,39 +1,94 @@
-# Personal Portfolio Website
+# Portfolio — rustam.os
 
-Welcome to the repository of my personal portfolio website! Here, I showcase my projects, skills, and professional journey.
+My personal portfolio, built as a retro desktop OS: a menu bar, draggable-looking
+windows, a boot splash, a CRT scanline overlay, and a pixel cat that wanders
+around the corner of the screen.
 
----
+Static HTML, CSS and JavaScript. No framework, no build step, no dependencies —
+the deployed site is exactly what is in this repository.
 
-## 📂 Project Structure
-
-This project is built as a lightweight, static web application:
-
-* **`assets/`** – Contains images, icons, logos, and other static media files.
-* **`css/`** – Contains the stylesheets for designing the website.
-* **`js/`** – Contains the JavaScript scripts for interactivity and dynamic features.
-* **`index.html`** – The main entry point (homepage) of the website.
+**German:** `index.html` · **English:** `index_en.html`
 
 ---
 
-## 🚀 Installation & Local Development
+## Running it
 
-Since this is a static website, no complex installation or build step is required.
+It is a static site, so anything that serves files works:
 
-### Option A: Direct Open
-Simply double-click the `index.html` file in your file explorer to open the website directly in your web browser.
+```bash
+python -m http.server 8000
+```
 
-### Option B: Local Web Server (Recommended)
-For a better development experience (such as live reloading), you can run a local web server:
-* **VS Code:** Use the *Live Server* extension.
-* **WebStorm / JetBrains:** Click on any browser icon in the top right corner of your editor while viewing `index.html`.
-* **Terminal (Python):** Run `python -m http.server 8000` in the project root folder and open `http://localhost:8000` in your browser.
+Then open <http://localhost:8000>. Opening `index.html` directly from the file
+manager also works — that is why the JavaScript is a plain script rather than
+ES modules, and why the mascot frame table is a `.js` file instead of JSON that
+would need `fetch()`.
 
 ---
 
-## 🛠️ Technologies Used
+## Layout
 
-* **HTML5** – Structured and semantic markup.
-* **CSS3** – Modern styles and responsive layouts.
-* **JavaScript** – Dynamic features and user interactions.
+```
+index.html          German page
+index_en.html       English page — same markup, translated copy
+css/styles.css      One stylesheet, sectioned, with design tokens at the top
+js/main.js          All behaviour: boot, clock, menus, scroll effects,
+                    previews, typewriters, cat mascot
+js/mascot-manifest.js   Generated frame table — do not edit by hand
+assets/
+  cursors/          The custom pixel pointers
+  icons/            Favicon and the HolyC badge
+  mascot/src/       Original cat frames as they came out of the art tool
+  mascot/frames/    Normalised frames the page actually loads
+  projects/         Project screenshots
+  arkanoid/         Pygame build, compiled to WebAssembly
+  drawingtool/      raylib build, compiled to WebAssembly
+tools/              Asset pipeline (see below)
+```
 
-(KI Generiert)
+The two language pages are kept structurally identical, so a diff between them
+shows only translated strings.
+
+---
+
+## Asset pipeline
+
+Two small Python scripts, run by hand when the source assets change. Both need
+`pillow` and `numpy`.
+
+### `tools/normalize_mascot.py`
+
+The cat frames arrived with three problems that made the animation jitter:
+every frame had its own canvas size, so `background-size: contain` scaled each
+one differently and the cat visibly grew and shrank; the `purr` frames were
+drawn at roughly twice the art scale of the others; and two frames had a stray
+black "ground line" baked in that no other frame had.
+
+The script measures the art scale, normalises all 20 frames onto one canvas
+with the feet on a shared baseline, strips the artefact, and rebuilds the white
+keyline on the one frame that shipped without it. It writes the frames and the
+manifest the page animates from.
+
+```bash
+python tools/normalize_mascot.py
+```
+
+### `tools/optimize_images.py`
+
+Re-encodes the screenshots at the size the page actually renders them. The
+originals were 2880×1620 captures being painted into 256px cards.
+
+```bash
+python tools/optimize_images.py
+```
+
+---
+
+## Notes
+
+- Animation respects `prefers-reduced-motion`: the typewriters settle on their
+  first line and the cat sits still.
+- Content is visible by default and only starts hidden once JavaScript takes
+  over the scroll reveal, so a blocked script cannot leave a blank page.
+- The try-out previews load their iframes on first open rather than up front.
+- The cat's frame loop parks itself while the tab is in the background.

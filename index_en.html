@@ -27,6 +27,7 @@
 
   <script src="js/mascot-manifest.js" defer></script>
   <script src="js/main.js" defer></script>
+  <script src="js/terminal.js" defer></script>
 </head>
 <body>
 
@@ -53,8 +54,12 @@
 
 <!-- ============ BOOT SCREEN ============ -->
 <div id="boot" aria-hidden="true">
-  <div class="happy-mac"></div>
-  <div class="boot-text">welcome to rustam.os</div>
+  <div class="boot__stage">
+    <div class="happy-mac"></div>
+    <div class="boot-text">welcome to rustam.os</div>
+    <pre class="boot__log" data-boot-log></pre>
+  </div>
+  <p class="boot__skip">press any key to skip</p>
 </div>
 
 <!-- ============ MENU BAR (functional) ============ -->
@@ -83,6 +88,15 @@
         <a href="#projects">→ Projects</a>
         <a href="#tryout">→ Try it out</a>
         <a href="#contact">→ Contact</a>
+      </div>
+    </div>
+
+    <div class="menu" data-menu>
+      <button type="button" data-menu-toggle aria-expanded="false" aria-haspopup="true">System</button>
+      <div class="menu-drop">
+        <button type="button" data-open-terminal>▤ Open terminal</button>
+        <button type="button" data-sound-toggle aria-pressed="false">♪ Sound<span class="menu-state" data-sound-state></span></button>
+        <button type="button" data-open-shortcuts>⌘ Shortcuts</button>
       </div>
     </div>
   </nav>
@@ -328,6 +342,7 @@
     <a href="#projects"><span class="ico" aria-hidden="true">📁</span>Projects</a>
     <a href="#tryout"><span class="ico" aria-hidden="true">🖥️</span>Try&nbsp;Out</a>
     <a href="#contact"><span class="ico" aria-hidden="true">✉️</span>Contact</a>
+    <button type="button" class="dock__app" data-open-terminal><span class="ico" aria-hidden="true">&gt;_</span>Terminal</button>
   </nav>
 </div>
 
@@ -338,6 +353,46 @@
   <div class="mascot__runner" data-mascot-runner>
     <div class="mascot__bubble" data-mascot-bubble></div>
     <div class="mascot__sprite" data-mascot-sprite></div>
+  </div>
+</div>
+
+<!-- ============ TERMINAL ============ -->
+<div class="term" data-terminal hidden>
+  <div class="term__window" role="dialog" aria-label="terminal — rustam.os">
+    <div class="titlebar term__bar" data-term-drag>
+      <button class="term__close" type="button" data-term-close aria-label="Close terminal"></button>
+      <div class="name">terminal — rustam.os</div>
+      <div class="spacer"></div>
+    </div>
+    <div class="term__body" data-term-body>
+      <div class="term__out" data-term-out role="log" aria-live="polite"></div>
+      <form class="term__line" data-term-form>
+        <span class="term__prompt" aria-hidden="true">rustam@os<span class="term__path">:~</span>$</span>
+        <input class="term__input" data-term-input type="text" autocomplete="off" autocapitalize="off"
+               autocorrect="off" spellcheck="false" aria-label="Terminal input" placeholder="type "help" for commands">
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SHORTCUT SHEET ============ -->
+<div class="sheet" data-shortcuts hidden>
+  <div class="sheet__panel" role="dialog" aria-label="Keyboard shortcuts">
+    <div class="titlebar">
+      <div class="dot"></div><div class="dot"></div>
+      <div class="name">Keyboard shortcuts</div>
+      <div class="spacer"></div>
+    </div>
+    <div class="sheet__body">
+      <dl class="keys">
+        <div class="keys__row"><dt><kbd data-mod>Ctrl</kbd><kbd>K</kbd></dt><dd>Open terminal</dd></div>
+        <div class="keys__row"><dt><kbd>1</kbd>…<kbd>4</kbd></dt><dd>Jump to section 1–4</dd></div>
+        <div class="keys__row"><dt><kbd>?</kbd></dt><dd>This overlay</dd></div>
+        <div class="keys__row"><dt><kbd>M</kbd></dt><dd>Toggle sound</dd></div>
+        <div class="keys__row"><dt><kbd>Esc</kbd></dt><dd>Close</dd></div>
+      </dl>
+      <button class="sheet__close" type="button" data-shortcuts-close>Close</button>
+    </div>
   </div>
 </div>
 

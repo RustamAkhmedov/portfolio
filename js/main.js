@@ -23,18 +23,194 @@
     return Array.prototype.slice.call((root || document).querySelectorAll(sel));
   }
 
+  /** Escape text that is about to be interpolated into innerHTML. */
+  function esc(text) {
+    return String(text)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
   // ==========================================================================
-  // Boot screen
+  // Sound
+  //
+  // Off by default and remembered. A portfolio that starts beeping at a
+  // recruiter is worse than a silent one, so this only ever makes noise after
+  // someone has opted in. One AudioContext is shared by every caller.
   // ==========================================================================
+
+  var Sound = (function () {
+    var STORAGE_KEY = 'rustamos.sound';
+    var enabled = false;
+    var ctx = null;
+    var listeners = [];
+
+    try {
+      enabled = window.localStorage.getItem(STORAGE_KEY) === 'on';
+    } catch (error) {
+      // Private mode or blocked storage — stay silent, stay working.
+    }
+
+    function context() {
+      var Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return null;
+      if (!ctx) ctx = new Ctx();
+      if (ctx.state === 'suspended') ctx.resume();
+      return ctx;
+    }
+
+    /**
+     * @param {{from:number, to?:number, type?:string, dur?:number, gain?:number}} spec
+     */
+    function play(spec) {
+      if (!enabled) return;
+      var audio = context();
+      if (!audio) return;
+      try {
+        var osc = audio.createOscillator();
+        var gain = audio.createGain();
+        var dur = spec.dur || 0.08;
+        osc.type = spec.type || 'square';
+        osc.frequency.setValueAtTime(spec.from, audio.currentTime);
+        if (spec.to) {
+          osc.frequency.exponentialRampToValueAtTime(spec.to, audio.currentTime + dur);
+        }
+        gain.gain.setValueAtTime(spec.gain || 0.04, audio.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audio.currentTime + dur);
+        osc.connect(gain).connect(audio.destination);
+        osc.start();
+        osc.stop(audio.currentTime + dur);
+      } catch (error) {
+        // Autoplay policy or no output device.
+      }
+    }
+
+    return {
+      get enabled() { return enabled; },
+      toggle: function () {
+        enabled = !enabled;
+        try { window.localStorage.setItem(STORAGE_KEY, enabled ? 'on' : 'off'); } catch (error) {}
+        listeners.forEach(function (fn) { fn(enabled); });
+        if (enabled) play({ from: 660, to: 990, dur: 0.09 });
+        return enabled;
+      },
+      onChange: function (fn) { listeners.push(fn); fn(enabled); },
+      blip: function () { play({ from: 880, to: 1180, dur: 0.05, gain: 0.03 }); },
+      key: function () { play({ from: 1500, dur: 0.018, gain: 0.018, type: 'square' }); },
+      open: function () { play({ from: 420, to: 880, dur: 0.12, gain: 0.05 }); },
+      close: function () { play({ from: 700, to: 300, dur: 0.11, gain: 0.045 }); },
+      purr: function () { play({ from: 150, dur: 0.5, gain: 0.09, type: 'sine' }); },
+      boot: function () { play({ from: 220, to: 660, dur: 0.35, gain: 0.05, type: 'triangle' }); }
+    };
+  }());
+
+  function initSoundToggle() {
+    var buttons = $$('[data-sound-toggle]');
+    if (!buttons.length) return;
+    Sound.onChange(function (on) {
+      buttons.forEach(function (button) {
+        button.setAttribute('aria-pressed', String(on));
+        var state = $('[data-sound-state]', button);
+        if (state) state.textContent = on ? 'ON' : 'OFF';
+      });
+    });
+    buttons.forEach(function (button) {
+      button.addEventListener('click', function () { Sound.toggle(); });
+    });
+  }
+
+  // ==========================================================================
+  // Boot sequence
+  //
+  // A short POST log assembled from what is actually on the page, so it can
+  // never claim something the portfolio does not say. Skippable, and only
+  // shown once per session — a boot screen on every navigation is a toll.
+  // ==========================================================================
+
+  function bootLines() {
+    var count = function (sel) { return $$(sel).length; };
+    var skills = $$('.tags .tag').map(function (el) { return el.textContent.trim(); });
+    var status = $('.info-row .v.on');
+    var location = $('.info-row .v');
+
+    var lines = [
+      ['booting kernel', 'OK'],
+      ['mounting /skills', skills.length + ' modules'],
+      ['  ' + skills.join('  '), null],
+      ['mounting /projects', count('.proj-card') + ' repos'],
+      ['mounting /demos', count('[data-preview]') + ' live'],
+      ['locale', (document.documentElement.lang || 'de').toUpperCase() +
+                 (location ? ' · ' + location.textContent.trim() : '')],
+      ['status', status ? status.textContent.replace(/^●\s*/, '') : 'ready']
+    ];
+    return lines;
+  }
 
   function initBoot() {
     var boot = $('#boot');
     if (!boot) return;
-    var hide = function () { boot.classList.add('is-hidden'); };
-    // Hide once the page is up; the timeout is a floor, not a dependency, so a
-    // stalled asset can never leave the visitor staring at the splash.
-    window.addEventListener('load', function () { window.setTimeout(hide, 900); });
-    window.setTimeout(hide, 3000);
+
+    var log = $('[data-boot-log]', boot);
+    var shell = $('.shell');
+    var finished = false;
+
+    function finish() {
+      if (finished) return;
+      finished = true;
+      boot.classList.add('is-hidden');
+      document.removeEventListener('keydown', finish);
+      boot.removeEventListener('pointerdown', finish);
+      // CRT power-on, but only for people who want motion.
+      if (shell && !prefersReducedMotion.matches) {
+        shell.classList.add('crt-on');
+        window.setTimeout(function () { shell.classList.remove('crt-on'); }, 600);
+      }
+    }
+
+    var seen = false;
+    try { seen = window.sessionStorage.getItem('rustamos.booted') === '1'; } catch (error) {}
+
+    // Skip the animation when it would not be watched anyway: a repeat visit,
+    // reduced motion, or a tab opened in the background. That last one matters
+    // — background tabs clamp setTimeout to about a second, so the sequence
+    // would crawl and the safety timeout would cut it off half-written.
+    if (seen || prefersReducedMotion.matches || !log || document.hidden) {
+      window.addEventListener('load', function () { window.setTimeout(finish, 320); });
+      window.setTimeout(finish, 2000);
+      return;
+    }
+    try { window.sessionStorage.setItem('rustamos.booted', '1'); } catch (error) {}
+
+    document.addEventListener('keydown', finish);
+    boot.addEventListener('pointerdown', finish);
+
+    var lines = bootLines();
+    var i = 0;
+
+    (function step() {
+      if (finished) return;
+      if (i >= lines.length) {
+        window.setTimeout(finish, 420);
+        return;
+      }
+      var line = lines[i++];
+      var row = document.createElement('div');
+      if (line[1] === null) {
+        row.className = 'dim';
+        row.textContent = line[0];
+      } else {
+        row.innerHTML = '<span class="dim">&gt;</span> ' + esc(line[0]) +
+                        ' <span class="dim">' + new Array(Math.max(2, 26 - line[0].length)).join('.') +
+                        '</span> <span class="' + (line[1] === 'OK' ? 'ok' : 'val') + '">' +
+                        esc(line[1]) + '</span>';
+      }
+      log.appendChild(row);
+      Sound.key();
+      window.setTimeout(step, 95 + Math.random() * 70);
+    }());
+
+    // Never strand anyone on the splash. Generous enough to clear the whole
+    // sequence, since the throttled case is handled above.
+    window.setTimeout(finish, 6000);
   }
 
   // ==========================================================================
@@ -174,6 +350,157 @@
         revealAll();
       }
     }, 1500);
+  }
+
+  // ==========================================================================
+  // Windowshade — the title-bar dot rolls the window up, like classic Mac OS
+  // ==========================================================================
+
+  function initWindowShade() {
+    $$('.mac-window > .titlebar').forEach(function (bar) {
+      var win = bar.parentElement;
+      var dot = $('.dot', bar);
+      var body = $('.window-body', win);
+      if (!dot || !body) return;
+
+      // Promote the decorative div to a real control.
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = dot.className;
+      button.setAttribute('aria-expanded', 'true');
+      var name = $('.name', bar);
+      button.setAttribute('aria-label',
+        (name ? name.textContent.trim() + ' — ' : '') + 'collapse');
+      dot.replaceWith(button);
+
+      function setShaded(shaded) {
+        // max-height needs a real number to animate from; measure on demand so
+        // it survives reflows, font loading and window resizes.
+        body.style.maxHeight = body.scrollHeight + 'px';
+        window.requestAnimationFrame(function () {
+          win.classList.toggle('is-shaded', shaded);
+          button.setAttribute('aria-expanded', String(!shaded));
+        });
+        if (!shaded) {
+          window.setTimeout(function () {
+            if (!win.classList.contains('is-shaded')) body.style.maxHeight = '';
+          }, 460);
+        }
+      }
+
+      button.addEventListener('click', function () {
+        var shaded = !win.classList.contains('is-shaded');
+        setShaded(shaded);
+        if (shaded) Sound.close(); else Sound.open();
+      });
+    });
+  }
+
+  // ==========================================================================
+  // Pointer spotlight across the window chrome
+  // ==========================================================================
+
+  function initSpotlight() {
+    if (prefersReducedMotion.matches) return;
+    if (!window.matchMedia('(hover: hover)').matches) return;
+
+    var windows = $$('.mac-window');
+    if (!windows.length) return;
+    var queued = false;
+    var last = null;
+
+    function paint() {
+      queued = false;
+      if (!last) return;
+      var win = last.target.closest('.mac-window');
+      if (!win) return;
+      var rect = win.getBoundingClientRect();
+      win.style.setProperty('--mx', ((last.x - rect.left) / rect.width * 100).toFixed(1) + '%');
+      win.style.setProperty('--my', ((last.y - rect.top) / rect.height * 100).toFixed(1) + '%');
+    }
+
+    document.addEventListener('pointermove', function (event) {
+      if (event.pointerType !== 'mouse') return;
+      if (!event.target.closest || !event.target.closest('.mac-window')) return;
+      last = { x: event.clientX, y: event.clientY, target: event.target };
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(paint);
+    }, { passive: true });
+  }
+
+  // ==========================================================================
+  // Keyboard shortcuts
+  // ==========================================================================
+
+  var SECTIONS = ['#about', '#projects', '#tryout', '#contact'];
+
+  function initShortcuts() {
+    var sheet = $('[data-shortcuts]');
+
+    function openSheet() {
+      if (!sheet) return;
+      sheet.hidden = false;
+      Sound.open();
+      var close = $('[data-shortcuts-close]', sheet);
+      if (close) close.focus();
+    }
+
+    function closeSheet() {
+      if (!sheet || sheet.hidden) return;
+      sheet.hidden = true;
+      Sound.close();
+    }
+
+    if (sheet) {
+      $$('[data-open-shortcuts]').forEach(function (b) {
+        b.addEventListener('click', openSheet);
+      });
+      var closeBtn = $('[data-shortcuts-close]', sheet);
+      if (closeBtn) closeBtn.addEventListener('click', closeSheet);
+      sheet.addEventListener('click', function (event) {
+        if (event.target === sheet) closeSheet();
+      });
+      // Show the right modifier for the platform.
+      var isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+      $$('[data-mod]', sheet).forEach(function (k) { k.textContent = isMac ? '⌘' : 'Ctrl'; });
+    }
+
+    document.addEventListener('keydown', function (event) {
+      var target = event.target;
+      var typing = target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' ||
+                              target.isContentEditable);
+
+      if (event.key === 'Escape') {
+        closeSheet();
+        return;
+      }
+
+      // Ctrl/Cmd+K reaches the terminal even from inside a text field.
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        window.dispatchEvent(new CustomEvent('rustamos:terminal', { detail: { toggle: true } }));
+        return;
+      }
+
+      if (typing || event.ctrlKey || event.metaKey || event.altKey) return;
+
+      if (event.key === '?') {
+        event.preventDefault();
+        sheet && sheet.hidden ? openSheet() : closeSheet();
+      } else if (event.key.toLowerCase() === 'm') {
+        Sound.toggle();
+      } else if (/^[1-4]$/.test(event.key)) {
+        var section = $(SECTIONS[+event.key - 1]);
+        if (!section) return;
+        event.preventDefault();
+        section.scrollIntoView({
+          behavior: prefersReducedMotion.matches ? 'auto' : 'smooth',
+          block: 'start'
+        });
+        Sound.blip();
+      }
+    });
   }
 
   // ==========================================================================
@@ -605,40 +932,30 @@
       if (bubble) bubble.classList.remove('is-visible');
     }
 
-    // ---- audio ------------------------------------------------------------
-    // One lazily created context, reused. The old code built a fresh
-    // AudioContext on every hover and browsers cap those at around six.
-    var audio = null;
-
-    function purrTone() {
-      var Ctx = window.AudioContext || window.webkitAudioContext;
-      if (!Ctx) return;
-      try {
-        if (!audio) audio = new Ctx();
-        if (audio.state === 'suspended') audio.resume();
-        var osc = audio.createOscillator();
-        var gain = audio.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(150, audio.currentTime);
-        gain.gain.setValueAtTime(0.1, audio.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audio.currentTime + 0.5);
-        osc.connect(gain).connect(audio.destination);
-        osc.start();
-        osc.stop(audio.currentTime + 0.5);
-      } catch (error) {
-        // Autoplay policy or no audio device — the cat works fine in silence.
-      }
-    }
+    // The purr goes through the shared, opt-in audio channel like everything
+    // else, so one mute switch covers the whole page.
+    function purrTone() { Sound.purr(); }
   }
 
   // ==========================================================================
 
+  // Shared services for js/terminal.js. Kept deliberately small: the terminal
+  // needs the audio channel and the reduced-motion query, nothing else.
+  window.RustamOS = {
+    sound: Sound,
+    prefersReducedMotion: prefersReducedMotion
+  };
+
   function init() {
+    initSoundToggle();
     initBoot();
     initClock();
     initMenus();
     initScrollEffects();
     initReveal();
+    initWindowShade();
+    initSpotlight();
+    initShortcuts();
     initThumbnailFallbacks();
     initPreviews();
     initTagline();

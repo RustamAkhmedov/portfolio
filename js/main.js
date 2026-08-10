@@ -230,19 +230,29 @@
   // Rotating tagline under the title
   // ==========================================================================
 
-  var TAGLINES = [
-    'IT-Security Interessiert',
-    'C++ · Java · JS Developer',
-    'HTL Pinkafeld — Ausbildung',
-    'Baut an: KI + MCP-Server',
-    'Hostet gerne lokale LLMs'
-  ];
+  // Keyed by <html lang> so the two pages share one script.
+  var TAGLINES = {
+    de: [
+      'IT-Security Interessiert',
+      'C++ · Java · JS Developer',
+      'HTL Pinkafeld — Ausbildung',
+      'Baut an: KI + MCP-Server',
+      'Hostet gerne lokale LLMs'
+    ],
+    en: [
+      'Interested in IT-Security',
+      'C++ · Java · JS Developer',
+      'HTL Pinkafeld — Education',
+      'Building: AI + MCP servers',
+      'Likes hosting local LLMs'
+    ]
+  };
 
   function initTagline() {
     var el = $('#tw-text');
     if (!el) return;
 
-    var phrases = TAGLINES;
+    var phrases = TAGLINES[document.documentElement.lang] || TAGLINES.de;
     if (prefersReducedMotion.matches) {
       el.textContent = phrases[0];
       return;
@@ -432,7 +442,9 @@
     }
 
     // ---- patrol -----------------------------------------------------------
-    var SPEED = 55; // px per second
+    // Paired with the `run` frame time in tools/normalize_mascot.py so the
+    // stride length stays believable — see the note there.
+    var SPEED = 38; // px per second
 
     function beginPatrol(now) {
       var target = Math.random() * trackWidth;
@@ -445,7 +457,7 @@
 
     function endPatrol(now) {
       patrol = null;
-      nextPatrolAt = now + 4000 + Math.random() * 5000;
+      nextPatrolAt = now + 6000 + Math.random() * 6000;
       setState(hovering && loaded.purr ? 'purr' : 'idle');
     }
 
@@ -501,7 +513,7 @@
         startTalking();
         return;
       }
-      nextPatrolAt = performance.now() + 3000;
+      nextPatrolAt = performance.now() + 4000;
       running = true;
       window.requestAnimationFrame(loop);
       startTalking();

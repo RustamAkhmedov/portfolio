@@ -54,11 +54,15 @@ STATES = {
 }
 
 # Milliseconds per frame, and whether the state loops or plays once.
+#
+# Keep `run` in step with SPEED in js/main.js: the run cycle is 5 frames, so at
+# 170ms each one stride takes 850ms, and at 38px/s the cat covers ~32px in that
+# time. If the two drift apart the paws visibly skate along the ground.
 TIMING = {
-    "idle": {"frameMs": 400, "loop": True},
-    "run": {"frameMs": 110, "loop": True},
-    "purr": {"frameMs": 300, "loop": True},
-    "bite": {"frameMs": 110, "loop": False},
+    "idle": {"frameMs": 550, "loop": True},
+    "run": {"frameMs": 170, "loop": True},
+    "purr": {"frameMs": 420, "loop": True},
+    "bite": {"frameMs": 170, "loop": False},
 }
 
 # Art-scale correction, i.e. how much larger this state was drawn than `idle`.

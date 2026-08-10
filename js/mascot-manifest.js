@@ -15,7 +15,7 @@ window.MASCOT_MANIFEST = {
         "idle_5.png",
         "idle_6.png"
       ],
-      "frameMs": 400,
+      "frameMs": 550,
       "loop": true
     },
     "run": {
@@ -26,7 +26,7 @@ window.MASCOT_MANIFEST = {
         "run_4.png",
         "run_5.png"
       ],
-      "frameMs": 110,
+      "frameMs": 170,
       "loop": true
     },
     "purr": {
@@ -36,7 +36,7 @@ window.MASCOT_MANIFEST = {
         "purr_3.png",
         "purr_4.png"
       ],
-      "frameMs": 300,
+      "frameMs": 420,
       "loop": true
     },
     "bite": {
@@ -47,7 +47,7 @@ window.MASCOT_MANIFEST = {
         "bite_4.png",
         "bite_5.png"
       ],
-      "frameMs": 110,
+      "frameMs": 170,
       "loop": false
     }
   }

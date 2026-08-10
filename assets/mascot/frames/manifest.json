@@ -1,0 +1,52 @@
+{
+  "canvas": {
+    "width": 183,
+    "height": 162
+  },
+  "states": {
+    "idle": {
+      "frames": [
+        "idle_1.png",
+        "idle_2.png",
+        "idle_3.png",
+        "idle_4.png",
+        "idle_5.png",
+        "idle_6.png"
+      ],
+      "frameMs": 400,
+      "loop": true
+    },
+    "run": {
+      "frames": [
+        "run_1.png",
+        "run_2.png",
+        "run_3.png",
+        "run_4.png",
+        "run_5.png"
+      ],
+      "frameMs": 110,
+      "loop": true
+    },
+    "purr": {
+      "frames": [
+        "purr_1.png",
+        "purr_2.png",
+        "purr_3.png",
+        "purr_4.png"
+      ],
+      "frameMs": 300,
+      "loop": true
+    },
+    "bite": {
+      "frames": [
+        "bite_1.png",
+        "bite_2.png",
+        "bite_3.png",
+        "bite_4.png",
+        "bite_5.png"
+      ],
+      "frameMs": 110,
+      "loop": false
+    }
+  }
+}

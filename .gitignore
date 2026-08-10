@@ -10,3 +10,10 @@ Desktop.ini
 
 # Optionale Log-Dateien
 *.log
+
+# Local tooling / editor
+.claude/
+
+# Python bytecode from tools/
+__pycache__/
+*.pyc

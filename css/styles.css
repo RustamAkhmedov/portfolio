@@ -958,10 +958,15 @@ footer{
 /* Phone */
 @media (max-width:640px){
   .shell{ padding:0 var(--space-3); }
-  .menubar{ padding:0 var(--space-2); gap:0; font-size:11px; }
-  .menubar .clock{ display:none; }
-  .menu > button{ padding:9px var(--space-2); }
   .brand-group{ gap:var(--space-2); }
+
+  /* Touch targets get at least 44px; that drives the bar height here. */
+  .menubar{ padding:0 var(--space-2); gap:0; font-size:11px; min-height:44px; }
+  .menubar .clock{ display:none; }
+  .menu > button{ padding:14px var(--space-2); }
+  .lang-switch{ padding:14px 10px; }
+  .tryout-titlebar{ padding:16px 12px; }
+  .link-btn{ padding:13px 14px; }
 
   .about-grid{ grid-template-columns:1fr; gap:var(--space-5); }
   .photo-slot{ max-width:160px; }
@@ -975,16 +980,23 @@ footer{
   .tryout-grid{ grid-template-columns:1fr; gap:var(--space-4); }
 
   .links{ gap:var(--space-2); }
-  .link-btn{ flex:1 1 auto; justify-content:center; padding:12px 14px; }
+  .link-btn{ flex:1 1 auto; justify-content:center; }
 
   .info-row{ font-size:11.5px; }
   .about-text p{ font-size:14px; }
 }
 
-/* Narrow phone: the HolyC badge is the first thing to go. */
-@media (max-width:400px){
+/* Narrow phone: the HolyC badge is the first thing to go. The cat stays --
+   it is the one bit of the page people remember -- just smaller and tucked
+   into the corner, and its wrapper is pointer-events:none so it never eats
+   a scroll. */
+@media (max-width:420px){
   .holyc-badge{ display:none; }
-  .mascot{ display:none; }
+  :root{
+    --mascot-height:88px;
+    --mascot-track:132px;
+    --mascot-inset-x:6px;
+  }
 }
 
 /* Coarse pointers get no hover-only affordances. */

@@ -602,36 +602,6 @@ h1.title{
 }
 .tag:hover{ transform:translateY(-3px); background:var(--violet); color:#fff; }
 
-/* Code window with typing animation. */
-.code-window{
-  margin-top:22px;
-  border:2px solid var(--line);
-  background:#050308;
-  border-radius:4px;
-  overflow:hidden;
-}
-.code-titlebar{
-  background:var(--chrome-dim);
-  display:flex; align-items:center; gap:var(--space-2);
-  padding:6px 10px;
-  font-family:var(--pixel); font-size:10px; color:var(--ink);
-}
-.code-titlebar .dot{
-  width:8px; height:8px; border-radius:50%;
-  border:1px solid var(--violet-glow);
-}
-.code-body{
-  padding:16px 18px;
-  font-family:var(--mono); font-size:12.5px; line-height:1.7;
-  min-height:130px;
-  white-space:pre-wrap; overflow-x:auto;
-  color:#c9bfe0;
-}
-.code-body .c-kw{ color:var(--violet-bright); }
-.code-body .c-str{ color:#7dff8a; }
-.code-body .c-com{ color:var(--ink-dim); }
-.code-body .c-cursor{ animation:blink 1s step-end infinite; color:var(--violet-glow); }
-
 /* ==========================================================================
    9. Projects
    ========================================================================== */
@@ -931,9 +901,9 @@ section{ position:relative; }
 .js-reveal .about-grid .photo-slot{ opacity:0; transform:translateX(-16px) rotate(-2deg); }
 .js-reveal .mac-window.is-visible .about-grid .photo-slot{ opacity:1; transform:translateX(0) rotate(0deg); }
 
-.code-window{ transition:opacity .6s var(--ease) .2s, transform .6s var(--ease) .2s; }
-.js-reveal .code-window{ opacity:0; transform:translateY(14px); }
-.js-reveal .mac-window.is-visible .code-window{ opacity:1; transform:translateY(0); }
+.term{ transition:opacity .6s var(--ease) .2s, transform .6s var(--ease) .2s; }
+.js-reveal .term{ opacity:0; transform:translateY(14px); }
+.js-reveal .mac-window.is-visible .term{ opacity:1; transform:translateY(0); }
 
 /* ==========================================================================
    14. Cat mascot
@@ -1017,55 +987,57 @@ section{ position:relative; }
    15. Terminal
    ========================================================================== */
 
-.term{
-  position:fixed; inset:0;
-  z-index:var(--z-terminal);
-  pointer-events:none;   /* only the window itself is interactive */
-}
-.term[hidden]{ display:none; }
+/* The terminal sits inline in the About section, where the code window used to
+   be. It is live from page load rather than something to be discovered. */
+.term{ margin-top:var(--space-6); }
 
 .term__window{
-  position:absolute;
-  left:var(--term-x, 50%); top:var(--term-y, 18vh);
-  width:min(620px, calc(100vw - 32px));
-  pointer-events:auto;
-  background:rgba(8,5,13,.94);
+  background:#050308;
   border:2px solid var(--violet);
-  border-radius:8px;
-  box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(168,85,247,.12),
-             0 0 60px rgba(109,40,217,.25);
+  border-radius:6px;
   overflow:hidden;
-  backdrop-filter:blur(6px);
-  animation:termIn .28s var(--ease);
+  box-shadow:0 0 0 1px rgba(168,85,247,.10), 0 14px 34px rgba(0,0,0,.45),
+             0 0 32px rgba(109,40,217,.18);
+  transition:border-color var(--slow) var(--ease), box-shadow var(--slow) var(--ease);
 }
-@keyframes termIn{
-  from{ opacity:0; transform:translateY(10px) scale(.985); }
-  to{ opacity:1; transform:translateY(0) scale(1); }
-}
-.term.is-closing .term__window{ animation:termOut .18s var(--ease) forwards; }
-@keyframes termOut{
-  to{ opacity:0; transform:translateY(6px) scale(.99); }
+/* Focus-within, not :focus — the caret lives on the input inside. */
+.term:focus-within .term__window{
+  border-color:var(--violet-bright);
+  box-shadow:0 0 0 1px rgba(168,85,247,.25), 0 14px 34px rgba(0,0,0,.5),
+             0 0 46px rgba(168,85,247,.3);
 }
 
-.term__bar{ cursor:grab; user-select:none; touch-action:none; }
-.term__bar:active{ cursor:grabbing; }
-
-.term__close{
-  width:11px; height:11px; border-radius:50%;
-  border:1.5px solid var(--violet-glow);
-  background:var(--void);
-  position:relative; flex:none; padding:0;
-  transition:background var(--fast) var(--ease);
+.term__bar{
+  background:var(--chrome-dim);
+  display:flex; align-items:center; gap:var(--space-2);
+  padding:6px 10px;
+  font-family:var(--pixel); font-size:10px; color:var(--ink);
+  user-select:none;
 }
-.term__close::before{ content:""; position:absolute; inset:-9px; }
-.term__close:hover{ background:#ff6b6b; border-color:#ff6b6b; }
+.term__bar .dot{
+  width:8px; height:8px; border-radius:50%;
+  border:1px solid var(--violet-glow);
+  flex:none;
+}
+.term__bar .name{ color:var(--ink); }
+.term__hint{
+  margin-left:auto; font-size:8.5px; color:var(--violet-glow); opacity:.75;
+  display:flex; align-items:center; gap:5px;
+}
+.term__hint::before{
+  content:""; width:5px; height:5px; border-radius:50%;
+  background:#7dff8a; box-shadow:0 0 6px #7dff8a;
+  animation:liveblink 2s ease-in-out infinite;
+}
+@keyframes liveblink{ 0%,100%{ opacity:1; } 50%{ opacity:.25; } }
 
 .term__body{
   padding:14px 16px 12px;
   font-family:var(--mono); font-size:12.5px; line-height:1.75;
-  max-height:min(52vh, 420px);
+  height:288px;
   overflow-y:auto;
   scrollbar-color:var(--violet) transparent;
+  cursor:text;
 }
 .term__body::-webkit-scrollbar{ width:8px; }
 .term__body::-webkit-scrollbar-thumb{ background:var(--violet); }
@@ -1227,15 +1199,9 @@ footer{
   .info-row{ font-size:11.5px; }
   .about-text p{ font-size:14px; }
 
-  /* The terminal docks to the bottom on phones rather than floating, so the
-     on-screen keyboard does not push it off the viewport. */
-  .term__window{
-    left:8px !important; right:8px;
-    top:auto !important; bottom:calc(82px + env(safe-area-inset-bottom, 0px));
-    width:auto; transform:none !important;
-  }
-  .term__bar{ cursor:default; }
-  .term__body{ max-height:46vh; }
+  /* Shorter on phones so the terminal does not eat the whole About section. */
+  .term__body{ height:230px; font-size:12px; }
+  .term__hint{ display:none; }
   .keys__row dt{ flex:0 0 104px; }
 }
 

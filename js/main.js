@@ -608,61 +608,6 @@
   }
 
   // ==========================================================================
-  // Code window: types out short snippets on a loop
-  // ==========================================================================
-
-  var SNIPPETS = [
-    '<span class="c-kw">class</span> Rustam {\n' +
-    '<span class="c-kw">public</span>:\n' +
-    '    <span class="c-kw">void</span> vibeCode();\n' +
-    '    <span class="c-kw">bool</span> isAvailable = <span class="c-kw">true</span>;\n' +
-    '};',
-
-    '<span class="c-com">// HolyC-Style, for Terry</span>\n' +
-    '<span class="c-kw">U8</span> j;\n' +
-    '<span class="c-kw">for</span> (j = 0; j < 10; j++)\n' +
-    '    PrintF(<span class="c-str">"Divine Intervention\\n"</span>);',
-
-    '<span class="c-kw">def</span> ship_project(idea):\n' +
-    '    <span class="c-kw">while</span> <span class="c-kw">not</span> idea.done:\n' +
-    '        idea.iterate()\n' +
-    '    <span class="c-kw">return</span> <span class="c-str">"deployed"</span>'
-  ];
-
-  function initCodeWindow() {
-    var el = $('#code-body');
-    if (!el) return;
-
-    if (prefersReducedMotion.matches) {
-      el.innerHTML = SNIPPETS[0];
-      return;
-    }
-
-    var snippet = 0;
-
-    function type() {
-      // Treat tags as atomic so the markup is never cut mid-tag.
-      var tokens = SNIPPETS[snippet].match(/<[^>]+>|[^<]/g) || [];
-      var i = 0;
-      el.innerHTML = '';
-
-      (function step() {
-        if (i < tokens.length) {
-          el.innerHTML = tokens.slice(0, ++i).join('') + '<span class="c-cursor">▌</span>';
-          window.setTimeout(step, 16);
-        } else {
-          window.setTimeout(function () {
-            snippet = (snippet + 1) % SNIPPETS.length;
-            type();
-          }, 2600);
-        }
-      }());
-    }
-
-    type();
-  }
-
-  // ==========================================================================
   // Cat mascot
   //
   // Frames are swapped from here rather than from CSS keyframes. The old
@@ -959,7 +904,6 @@
     initThumbnailFallbacks();
     initPreviews();
     initTagline();
-    initCodeWindow();
     initMascot();
   }
 

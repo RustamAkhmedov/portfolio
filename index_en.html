@@ -94,7 +94,7 @@
     <div class="menu" data-menu>
       <button type="button" data-menu-toggle aria-expanded="false" aria-haspopup="true">System</button>
       <div class="menu-drop">
-        <button type="button" data-open-terminal>▤ Open terminal</button>
+        <button type="button" data-open-terminal>▤ Focus terminal</button>
         <button type="button" data-sound-toggle aria-pressed="false">♪ Sound<span class="menu-state" data-sound-state></span></button>
         <button type="button" data-open-shortcuts>⌘ Shortcuts</button>
       </div>
@@ -136,9 +136,24 @@
                 <li class="tag">SQL</li><li class="tag">Java</li><li class="tag">IT-Security</li>
               </ul>
 
-              <div class="code-window" aria-hidden="true">
-                <div class="code-titlebar"><div class="dot"></div> main.cpp</div>
-                <div class="code-body" id="code-body"></div>
+              <!-- Live terminal. Every command reads the page itself; see js/terminal.js -->
+              <div class="term" data-terminal>
+                <div class="term__window">
+                  <div class="term__bar">
+                    <span class="dot" aria-hidden="true"></span>
+                    <span class="name">terminal — rustam.os</span>
+                    <span class="term__hint" aria-hidden="true">interactive — type in it</span>
+                  </div>
+                  <div class="term__body" data-term-body>
+                    <div class="term__out" data-term-out role="log" aria-live="polite"></div>
+                    <form class="term__line" data-term-form>
+                      <span class="term__prompt" aria-hidden="true">rustam@os<span class="term__path">:~</span>$</span>
+                      <input class="term__input" data-term-input type="text" autocomplete="off"
+                             autocapitalize="off" autocorrect="off" spellcheck="false"
+                             aria-label="Terminal input" placeholder="type “help” for commands">
+                    </form>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -342,7 +357,6 @@
     <a href="#projects"><span class="ico" aria-hidden="true">📁</span>Projects</a>
     <a href="#tryout"><span class="ico" aria-hidden="true">🖥️</span>Try&nbsp;Out</a>
     <a href="#contact"><span class="ico" aria-hidden="true">✉️</span>Contact</a>
-    <button type="button" class="dock__app" data-open-terminal><span class="ico" aria-hidden="true">&gt;_</span>Terminal</button>
   </nav>
 </div>
 
@@ -356,24 +370,6 @@
   </div>
 </div>
 
-<!-- ============ TERMINAL ============ -->
-<div class="term" data-terminal hidden>
-  <div class="term__window" role="dialog" aria-label="terminal — rustam.os">
-    <div class="titlebar term__bar" data-term-drag>
-      <button class="term__close" type="button" data-term-close aria-label="Close terminal"></button>
-      <div class="name">terminal — rustam.os</div>
-      <div class="spacer"></div>
-    </div>
-    <div class="term__body" data-term-body>
-      <div class="term__out" data-term-out role="log" aria-live="polite"></div>
-      <form class="term__line" data-term-form>
-        <span class="term__prompt" aria-hidden="true">rustam@os<span class="term__path">:~</span>$</span>
-        <input class="term__input" data-term-input type="text" autocomplete="off" autocapitalize="off"
-               autocorrect="off" spellcheck="false" aria-label="Terminal input" placeholder="type "help" for commands">
-      </form>
-    </div>
-  </div>
-</div>
 
 <!-- ============ SHORTCUT SHEET ============ -->
 <div class="sheet" data-shortcuts hidden>

@@ -190,8 +190,7 @@
     var toggle = $('[data-preview-toggle]', hit.card);
     if (toggle && !hit.card.classList.contains('is-expanded')) toggle.click();
     hit.card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    close();
-    return '';
+    return 'launching <span class="t-key">' + esc(hit.id) + '</span> …';
   });
 
   define('contact', 'how to reach me', function () {
@@ -261,10 +260,9 @@
     return '';
   });
 
-  define('exit', 'close the terminal', function () {
-    close();
-    return '';
-  });
+  define('exit', '', function () {
+    return '<span class="t-dim">There is no exit. This terminal is the page.</span>';
+  }, true);
 
   // ==========================================================================
   // Shell
@@ -310,68 +308,82 @@
     if (result) write(result);
   }
 
-  function open() {
-    if (!root.hidden) { input.focus(); return; }
-    root.hidden = false;
-    root.classList.remove('is-closing');
+  /**
+   * Bring the terminal into view and put the caret in it.
+   *
+   * Never called on load: focusing an input at page load steals the caret,
+   * scrolls the page and takes the space bar away from the reader.
+   */
+  function focusTerminal() {
+    root.scrollIntoView({
+      behavior: (OS.prefersReducedMotion && OS.prefersReducedMotion.matches) ? 'auto' : 'smooth',
+      block: 'center'
+    });
+    input.focus({ preventScroll: true });
     Sound.open();
-    if (!out.childNodes.length) write(commands.help.run([]));
-    input.focus();
-    scrollToEnd();
   }
 
-  function close() {
-    if (root.hidden) return;
-    root.classList.add('is-closing');
-    Sound.close();
-    var done = function () {
-      root.hidden = true;
-      root.classList.remove('is-closing');
+  // ---- self-running intro -------------------------------------------------
+  // The terminal is live from page load, but nothing about a prompt says
+  // "type in me". So the first time it scrolls into view it runs one command
+  // by itself, typing it out, and then hands over. Any real interaction
+  // cancels it — nobody should have to fight a demo for their own caret.
+
+  function playIntro() {
+    var DEMO = 'whoami';
+    var cancelled = false;
+
+    function cancel() { cancelled = true; }
+    input.addEventListener('keydown', cancel, { once: true });
+    input.addEventListener('focus', cancel, { once: true });
+
+    if (OS.prefersReducedMotion && OS.prefersReducedMotion.matches) {
+      run(DEMO);
+      return;
+    }
+
+    var i = 0;
+    (function type() {
+      if (cancelled) { input.value = ''; return; }
+      if (i < DEMO.length) {
+        input.value = DEMO.slice(0, ++i);
+        Sound.key();
+        window.setTimeout(type, 90 + Math.random() * 60);
+        return;
+      }
+      window.setTimeout(function () {
+        if (cancelled) { input.value = ''; return; }
+        input.value = '';
+        run(DEMO);
+      }, 420);
+    }());
+  }
+
+  function inView() {
+    var rect = root.getBoundingClientRect();
+    return rect.top < window.innerHeight * 0.9 && rect.bottom > 0;
+  }
+
+  function initIntro() {
+    var started = false;
+    function begin() {
+      if (started) return;
+      started = true;
+      window.setTimeout(playIntro, 700);
+    }
+
+    // The terminal sits in the About section, so on a normal load it is
+    // already on screen. Measure rather than wait for an observer callback:
+    // IntersectionObserver delivery is tied to rendering, which a backgrounded
+    // tab suspends, and the intro would then never start.
+    if (inView()) { begin(); return; }
+
+    var onScroll = function () {
+      if (!inView()) return;
+      window.removeEventListener('scroll', onScroll);
+      begin();
     };
-    if (OS.prefersReducedMotion && OS.prefersReducedMotion.matches) done();
-    else window.setTimeout(done, 170);
-  }
-
-  function toggle() { root.hidden ? open() : close(); }
-
-  // ---- dragging -----------------------------------------------------------
-  // Fixed-position only, so nothing in the document flow can be disturbed.
-
-  function initDrag() {
-    var dragging = null;
-
-    bar.addEventListener('pointerdown', function (event) {
-      if (event.target.closest('[data-term-close]')) return;
-      if (!window.matchMedia('(min-width: 641px)').matches) return;
-      var rect = win.getBoundingClientRect();
-      dragging = { dx: event.clientX - rect.left, dy: event.clientY - rect.top };
-      win.style.transform = 'none';
-      bar.setPointerCapture(event.pointerId);
-    });
-
-    bar.addEventListener('pointermove', function (event) {
-      if (!dragging) return;
-      var w = win.offsetWidth, h = win.offsetHeight;
-      var x = Math.min(Math.max(event.clientX - dragging.dx, 4), window.innerWidth - w - 4);
-      var y = Math.min(Math.max(event.clientY - dragging.dy, 4), window.innerHeight - h - 4);
-      win.style.setProperty('--term-x', x + 'px');
-      win.style.setProperty('--term-y', y + 'px');
-    });
-
-    var end = function (event) {
-      if (!dragging) return;
-      dragging = null;
-      try { bar.releasePointerCapture(event.pointerId); } catch (error) {}
-    };
-    bar.addEventListener('pointerup', end);
-    bar.addEventListener('pointercancel', end);
-  }
-
-  function centre() {
-    // Start centred horizontally without relying on a transform that dragging
-    // would then have to unpick.
-    var w = Math.min(620, window.innerWidth - 32);
-    win.style.setProperty('--term-x', Math.round((window.innerWidth - w) / 2) + 'px');
+    window.addEventListener('scroll', onScroll, { passive: true });
   }
 
   // ==========================================================================
@@ -382,24 +394,22 @@
     win = $('.term__window', root);
     out = $('[data-term-out]', root);
     input = $('[data-term-input]', root);
-    bar = $('[data-term-drag]', root);
-    if (!win || !out || !input || !bar) return;
+    if (!win || !out || !input) return;
 
-    centre();
-    window.addEventListener('resize', function () {
-      if (root.hidden) centre();
-    });
+    // Greeting is written now, not on first focus: the terminal is part of the
+    // page, so it should never look like an empty box.
+    write('<span class="t-dim">rustam.os shell — reads this page live. ' +
+          'Type <span class="t-key">help</span>.</span>');
 
     $$('[data-open-terminal]').forEach(function (b) {
       b.addEventListener('click', function (event) {
         event.preventDefault();
-        open();
+        focusTerminal();
       });
     });
-    $$('[data-term-close]').forEach(function (b) { b.addEventListener('click', close); });
 
     // main.js owns the keyboard map and asks for the terminal through an event.
-    window.addEventListener('rustamos:terminal', toggle);
+    window.addEventListener('rustamos:terminal', focusTerminal);
 
     $('[data-term-form]', root).addEventListener('submit', function (event) {
       event.preventDefault();
@@ -409,7 +419,7 @@
     });
 
     input.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape') { close(); return; }
+      if (event.key === 'Escape') { input.blur(); return; }
 
       if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
         if (!history.length) return;
@@ -439,10 +449,10 @@
     win.addEventListener('click', function (event) {
       if (event.target.closest('a, button')) return;
       if (window.getSelection && String(window.getSelection())) return;
-      input.focus();
+      input.focus({ preventScroll: true });
     });
 
-    initDrag();
+    initIntro();
   }
 
   if (document.readyState === 'loading') {

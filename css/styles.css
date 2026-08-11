@@ -407,47 +407,58 @@ body::after{
   margin:0 auto;
   padding:0 var(--space-5);
   display:grid;
-  grid-template-columns:1fr 128px;
+  grid-template-columns:1fr 176px;
   gap:30px;
 }
 
 .main-col{ min-width:0; padding-bottom:var(--space-7); position:relative; }
 
-/* Desktop icon dock, like real Mac desktop icons. */
-.dock{
+/* The side rail holds an "apps" window. Its entries open real windows rather
+   than scrolling the page — section links still live in the View menu. */
+.rail{
   position:sticky; top:56px;
   align-self:start;
-  display:flex; flex-direction:column; gap:22px;
   padding-top:var(--space-7);
 }
-.dock a,
-.dock .dock__app{
-  display:flex; flex-direction:column; align-items:center; gap:var(--space-1);
-  background:none; border:0;
-  text-decoration:none; color:var(--ink-dim);
-  font-family:var(--pixel); font-size:9.5px;
-  padding:var(--space-2) var(--space-1); text-align:center;
-  transition:color var(--fast) var(--ease);
+.apps-win{ margin-top:0; }
+.apps-win .window-body{ padding:var(--space-3) var(--space-3) var(--space-2); }
+
+.apps{ display:flex; flex-direction:column; gap:2px; }
+
+.app{
+  display:flex; align-items:center; gap:var(--space-3);
+  width:100%;
+  background:none; border:0; border-radius:4px;
+  color:var(--ink-dim);
+  font-family:var(--mono); font-size:11.5px;
+  padding:7px 8px; text-align:left;
+  transition:background var(--fast) var(--ease), color var(--fast) var(--ease);
 }
-.dock .ico{
-  width:34px; height:34px;
+.app__ico{
+  width:28px; height:28px; flex:none;
   border:2px solid var(--chrome-dim);
   background:var(--void-2);
+  border-radius:3px;
   display:flex; align-items:center; justify-content:center;
-  font-size:16px;
+  font-size:14px;
   transition:transform .25s var(--ease), border-color var(--fast) var(--ease),
              background var(--fast) var(--ease), box-shadow var(--fast) var(--ease);
 }
-.dock__app .ico{ font-family:var(--pixel); font-size:12px; color:var(--violet-glow); }
-.dock a:hover,
-.dock .dock__app:hover{ color:var(--violet-glow); }
-.dock a:hover .ico,
-.dock .dock__app:hover .ico{
-  border-color:var(--violet-bright); background:var(--violet);
-  box-shadow:0 0 14px rgba(168,85,247,.5);
-  transform:translateY(-4px) scale(1.08);
+.app__ext{ opacity:.45; }
+.app:hover{ background:var(--violet); color:#fff; }
+.app:hover .app__ico{
+  border-color:var(--violet-glow);
+  box-shadow:0 0 12px rgba(168,85,247,.5);
+  transform:scale(1.06);
 }
-.dock .dock__app:hover .ico{ color:#fff; }
+.app[aria-pressed="true"]{ color:var(--violet-glow); }
+.app[aria-pressed="true"] .app__ico{ border-color:var(--violet-bright); }
+
+.apps__hint{
+  margin-top:var(--space-2); padding:0 8px 2px;
+  font-family:var(--pixel); font-size:8px; letter-spacing:.5px;
+  color:var(--chrome-dim);
+}
 
 /* ==========================================================================
    7. Window chrome
@@ -1068,6 +1079,168 @@ section{ position:relative; }
 .term__input::placeholder{ color:var(--chrome-dim); }
 
 /* ==========================================================================
+   15b. App windows
+   ========================================================================== */
+
+.wins{
+  position:fixed; inset:0;
+  z-index:var(--z-terminal);
+  pointer-events:none;      /* only the windows themselves are interactive */
+}
+
+.win{
+  position:absolute;
+  left:var(--win-x, 50%); top:var(--win-y, 12vh);
+  width:var(--win-w, 620px);
+  pointer-events:auto;
+  display:flex; flex-direction:column;
+  background:var(--panel);
+  border:2px solid var(--violet);
+  border-radius:8px;
+  box-shadow:0 30px 80px rgba(0,0,0,.72), 0 0 0 1px rgba(168,85,247,.12),
+             0 0 60px rgba(109,40,217,.22);
+  overflow:hidden;
+  animation:winIn .26s var(--ease);
+}
+@keyframes winIn{
+  from{ opacity:0; transform:translateY(14px) scale(.97); }
+  to{ opacity:1; transform:translateY(0) scale(1); }
+}
+.win.is-closing{ animation:winOut .16s var(--ease) forwards; }
+@keyframes winOut{ to{ opacity:0; transform:translateY(8px) scale(.985); } }
+
+/* Unfocused windows recede rather than competing for attention. */
+.win:not(.is-front){ box-shadow:0 16px 40px rgba(0,0,0,.55); }
+.win:not(.is-front) .win__bar{ filter:saturate(.5) brightness(.8); }
+
+.win__bar{
+  background:repeating-linear-gradient(180deg, var(--chrome-dim) 0px, var(--chrome-dim) 1px,
+             var(--void-2) 1px, var(--void-2) 3px);
+  border-bottom:2px solid var(--violet);
+  display:flex; align-items:center; gap:var(--space-2);
+  padding:7px 10px;
+  cursor:grab; user-select:none; touch-action:none;
+  flex:none;
+}
+.win__bar:active{ cursor:grabbing; }
+
+.win__close{
+  width:11px; height:11px; border-radius:50%;
+  border:1.5px solid var(--violet-glow);
+  background:var(--void);
+  position:relative; flex:none; padding:0;
+  transition:background var(--fast) var(--ease), border-color var(--fast) var(--ease);
+}
+.win__close::before{ content:""; position:absolute; inset:-9px; }
+.win__close:hover{ background:#ff6b6b; border-color:#ff6b6b; }
+
+.win__title{
+  margin:0 auto;
+  background:var(--panel); padding:1px 10px;
+  font-family:var(--pixel); font-size:11px; color:var(--violet-glow);
+}
+.win__spacer{ width:11px; flex:none; }
+
+.win__body{
+  flex:1 1 auto; min-height:0;
+  overflow:auto;
+  scrollbar-color:var(--violet) transparent;
+}
+.win__body::-webkit-scrollbar{ width:10px; height:10px; }
+.win__body::-webkit-scrollbar-track{ background:var(--void-2); }
+.win__body::-webkit-scrollbar-thumb{ background:var(--violet); border:2px solid var(--void-2); }
+
+/* Cloned page fragments must not inherit the scroll-reveal start state. */
+.win .info-row,
+.win .tag,
+.win .photo-slot,
+.win .proj-card{ opacity:1 !important; transform:none !important; }
+
+.win__pad{ padding:var(--space-5); }
+.win__pad .about-text p:last-child{ margin-bottom:0; }
+.win__pad .photo-slot{ max-width:150px; margin-bottom:var(--space-4); }
+
+/* ---- Finder ------------------------------------------------------------- */
+
+.finder{ display:flex; flex-direction:column; height:100%; }
+
+.finder__toolbar{
+  display:flex; align-items:center; gap:var(--space-3);
+  padding:8px 12px;
+  border-bottom:1px solid var(--line);
+  background:var(--void-2);
+  font-family:var(--pixel); font-size:9px; color:var(--ink-dim);
+  flex:none;
+}
+.finder__path{ color:var(--violet-glow); }
+.finder__count{ margin-left:auto; }
+
+.finder__list{ list-style:none; margin:0; padding:4px; overflow:auto; }
+.finder__row{
+  display:flex; align-items:center; gap:var(--space-3);
+  width:100%;
+  padding:7px 9px; border-radius:4px;
+  background:none; border:0; text-align:left;
+  color:var(--ink); text-decoration:none;
+  font-family:var(--mono); font-size:12.5px;
+  transition:background var(--fast) var(--ease);
+}
+.finder__row:hover{ background:var(--violet); color:#fff; }
+.finder__row:hover .finder__meta,
+.finder__row:hover .finder__go{ color:rgba(255,255,255,.8); }
+
+.finder__thumb{
+  width:38px; height:26px; flex:none;
+  object-fit:cover;
+  border:1px solid var(--line);
+  background:var(--void-2);
+  image-rendering:auto;
+}
+.finder__name{ flex:0 0 auto; }
+.finder__meta{
+  margin-left:auto; padding-left:var(--space-3);
+  font-size:10.5px; color:var(--ink-dim);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.finder__go{ flex:none; color:var(--violet-glow); font-size:11px; }
+.finder__row.is-active{ background:var(--violet); color:#fff; }
+.finder__row.is-active .finder__meta{ color:rgba(255,255,255,.8); }
+
+/* ---- Finder, split view (preview.app) ----------------------------------- */
+
+.finder--split{ flex-direction:row; }
+.finder--split .finder__side{
+  flex:0 0 190px;
+  border-right:2px solid var(--line);
+  display:flex; flex-direction:column;
+  min-height:0;
+}
+.finder--split .finder__side .finder__list{ flex:1 1 auto; }
+.finder--split .finder__stage{
+  flex:1 1 auto; min-width:0;
+  display:flex; flex-direction:column;
+  background:#000;
+}
+.finder__stagebar{
+  display:flex; align-items:center; gap:var(--space-2);
+  padding:7px 10px;
+  background:var(--void-2);
+  border-bottom:1px solid var(--line);
+  font-family:var(--pixel); font-size:9px; color:var(--ink-dim);
+  flex:none;
+}
+.finder__stagebar a{ margin-left:auto; color:var(--violet-glow); }
+.finder__frame{ flex:1 1 auto; position:relative; min-height:0; }
+.finder__frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.finder__empty{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  gap:var(--space-2);
+  font-family:var(--pixel); font-size:10px; color:var(--chrome-dim);
+  text-align:center; padding:var(--space-5);
+}
+
+/* ==========================================================================
    16. Shortcut sheet
    ========================================================================== */
 
@@ -1144,19 +1317,48 @@ footer{
   .flow-rail, .flow-dot, .step-tag{ display:none; }
   .lang-badge{ display:none; }
 
-  /* The dock becomes a bottom bar so navigation survives on small screens.
-     It used to be display:none here, which left phones with no nav at all. */
-  .dock{
+  /* The apps rail becomes a bottom launcher bar. Windows open full-screen. */
+  .rail{ position:static; padding-top:0; }
+  .apps-win{
     position:fixed; inset:auto 0 0 0;
     z-index:var(--z-menubar);
-    flex-direction:row; justify-content:space-around; gap:0;
-    padding:6px var(--space-1) calc(6px + env(safe-area-inset-bottom, 0px));
-    background:var(--panel);
-    border-top:2px solid var(--violet);
+    border:0; border-top:2px solid var(--violet);
+    border-radius:0;
+    box-shadow:0 -8px 24px rgba(0,0,0,.5);
+    margin:0;
   }
-  .dock a{ flex:1 1 0; min-height:48px; justify-content:center; font-size:9px; }
-  .dock a .ico{ width:26px; height:26px; font-size:13px; }
-  .dock a:hover .ico{ transform:none; }
+  .apps-win > .titlebar{ display:none; }
+  .apps-win .window-body{
+    padding:6px var(--space-1) calc(6px + env(safe-area-inset-bottom, 0px));
+    max-height:none !important; opacity:1 !important;
+  }
+  .apps{ flex-direction:row; justify-content:space-around; gap:0; }
+  .app{
+    flex:1 1 0; min-height:48px;
+    flex-direction:column; gap:3px;
+    justify-content:center; align-items:center;
+    font-family:var(--pixel); font-size:8px;
+    padding:4px 2px;
+  }
+  .app__ico{ width:26px; height:26px; font-size:13px; }
+  .app:hover{ background:none; color:var(--ink-dim); }
+  .app:hover .app__ico{ transform:none; box-shadow:none; border-color:var(--chrome-dim); }
+  .app__ext{ display:none; }
+  .apps__hint{ display:none; }
+
+  /* Full-screen windows: dragging a 320px-wide window is not a real gesture. */
+  .win{
+    left:0 !important; top:var(--menubar-h, 34px) !important;
+    width:100% !important;
+    height:calc(100dvh - var(--menubar-h, 34px) - 82px) !important;
+    border-radius:0; border-left:0; border-right:0;
+  }
+  .win__bar{ cursor:default; }
+  .finder--split{ flex-direction:column; }
+  .finder--split .finder__side{
+    flex:0 0 auto; max-height:38%;
+    border-right:0; border-bottom:2px solid var(--line);
+  }
 
   /* Clear the fixed bar. */
   body{ padding-bottom:82px; }

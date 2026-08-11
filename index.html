@@ -6,17 +6,26 @@
   <title>Rustam — Portfolio</title>
   <meta name="description" content="Ich baue Dinge, die von dem Terminal bis zum Browser-Tab reichen — von Pythonscripts zur Automatisierung bis zu Webapps mit eigener Backend-Logik.">
   <meta name="author" content="Rustam Akhmedov">
-  <link rel="alternate" hreflang="de" href="index.html">
-  <link rel="alternate" hreflang="en" href="index_en.html">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Rustam — Portfolio">
   <meta property="og:description" content="Ich baue Dinge, die von dem Terminal bis zum Browser-Tab reichen — von Pythonscripts zur Automatisierung bis zu Webapps mit eigener Backend-Logik.">
-  <meta property="og:image" content="assets/profile/Akhmedov.jpg">
+  <meta property="og:url" content="https://rustamakhmedov.github.io/portfolio/index.html">
+  <meta property="og:site_name" content="rustam.os">
+  <meta property="og:image" content="https://rustamakhmedov.github.io/portfolio/assets/og/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="rustam.os — Portfolio von Rustam Akhmedov">
   <meta property="og:locale" content="de_AT">
+  <meta property="og:locale:alternate" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://rustamakhmedov.github.io/portfolio/assets/og/og-card.png">
   <meta name="theme-color" content="#0a0710">
 
+  <link rel="canonical" href="https://rustamakhmedov.github.io/portfolio/index.html">
+  <link rel="alternate" hreflang="en" href="https://rustamakhmedov.github.io/portfolio/index_en.html">
+  <link rel="alternate" hreflang="de" href="https://rustamakhmedov.github.io/portfolio/index.html">
+  <link rel="alternate" hreflang="x-default" href="https://rustamakhmedov.github.io/portfolio/index.html">
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/icons/holyc.png">
 
@@ -28,6 +37,7 @@
   <script src="js/mascot-manifest.js" defer></script>
   <script src="js/main.js" defer></script>
   <script src="js/terminal.js" defer></script>
+  <script src="js/windows.js" defer></script>
 </head>
 <body>
 
@@ -351,13 +361,39 @@
     </section>
   </main>
 
-  <!-- ============ DESKTOP-ICON-DOCK ============ -->
-  <nav class="dock" aria-label="Abschnitte">
-    <a href="#about"><span class="ico" aria-hidden="true">👤</span>About</a>
-    <a href="#projects"><span class="ico" aria-hidden="true">📁</span>Projects</a>
-    <a href="#tryout"><span class="ico" aria-hidden="true">🖥️</span>Try&nbsp;Out</a>
-    <a href="#contact"><span class="ico" aria-hidden="true">✉️</span>Contact</a>
-  </nav>
+  <!-- ============ APPS ============ -->
+  <!-- Replaces the old anchor-link dock: these open real windows. Section
+       navigation still lives in the View menu, and the page scrolls normally. -->
+  <aside class="rail" aria-label="Apps">
+    <div class="mac-window apps-win">
+      <div class="titlebar">
+        <div class="dot"></div>
+        <div class="name">Apps</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="window-body apps" data-apps
+           data-s-select="Projekt wählen" data-s-items="Objekte" data-s-close="Fenster schließen"
+           data-s-run="starten" data-s-newtab="in neuem Tab öffnen" data-s-loading="lädt …">
+        <button type="button" class="app" data-app="finder">
+          <span class="app__ico" aria-hidden="true">📁</span>
+          <span class="app__name">finder<span class="app__ext">.app</span></span>
+        </button>
+        <button type="button" class="app" data-app="preview">
+          <span class="app__ico" aria-hidden="true">🖥️</span>
+          <span class="app__name">preview<span class="app__ext">.app</span></span>
+        </button>
+        <button type="button" class="app" data-app="about">
+          <span class="app__ico" aria-hidden="true">👤</span>
+          <span class="app__name">about<span class="app__ext">.app</span></span>
+        </button>
+        <button type="button" class="app" data-app="contact">
+          <span class="app__ico" aria-hidden="true">✉️</span>
+          <span class="app__name">contact<span class="app__ext">.app</span></span>
+        </button>
+        <p class="apps__hint">klicken zum öffnen</p>
+      </div>
+    </div>
+  </aside>
 </div>
 
 <!-- ============ CAT MASCOT ============ -->
@@ -391,6 +427,9 @@
     </div>
   </div>
 </div>
+
+<!-- Floating app windows are created here by js/windows.js -->
+<div class="wins" data-wins></div>
 
 <footer>© 2026 RUSTAM — BUILT ON HOLYC — MADE ON A ONE-BIT DREAM</footer>
 

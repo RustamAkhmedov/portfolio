@@ -1,5 +1,35 @@
 [
   {
+    "file": "fretlearn",
+    "title": "fretlearn",
+    "thumb": "assets/projects/fretlearn.png",
+    "emoji": "🎸",
+    "src": "https://rustamakhmedov.github.io/fretlearn/",
+    "sandbox": "allow-scripts allow-same-origin",
+    "wasm": false,
+    "newTab": "https://rustamakhmedov.github.io/fretlearn/"
+  },
+  {
+    "file": "weitland",
+    "title": "Weitland",
+    "thumb": "assets/projects/weitland.png",
+    "emoji": "🏰",
+    "src": "https://rustamakhmedov.github.io/weitland/",
+    "sandbox": "allow-scripts allow-same-origin allow-pointer-lock",
+    "wasm": false,
+    "newTab": "https://rustamakhmedov.github.io/weitland/"
+  },
+  {
+    "file": "nscs",
+    "title": "NSCS",
+    "thumb": "assets/projects/nscs.png",
+    "emoji": "🌐",
+    "src": "https://rustamakhmedov.github.io/nscs/",
+    "sandbox": "allow-scripts allow-same-origin",
+    "wasm": false,
+    "newTab": "https://rustamakhmedov.github.io/nscs/"
+  },
+  {
     "file": "onlineide",
     "title": "OnlineIDE",
     "thumb": "assets/projects/onlineide.png",

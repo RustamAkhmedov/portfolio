@@ -1,5 +1,27 @@
 [
   {
+    "name": "gen_Ut",
+    "repo": "https://github.com/RustamAkhmedov/genut",
+    "thumb": "assets/projects/genut.png",
+    "emoji": "📚",
+    "stack": "Python · Claude · Gemini · Ollama",
+    "desc": {
+      "de": "Macht aus Fotos und Mitschriften interaktive Offline-Lernseiten. Rechnungen, SQL und Subnetze werden nachgeprüft, bevor sie auf der Seite landen.",
+      "en": "Turns photos of class notes into interactive offline study pages. Maths, SQL and subnetting results are checked before they reach the page."
+    }
+  },
+  {
+    "name": "fretlearn",
+    "repo": "https://github.com/RustamAkhmedov/fretlearn",
+    "thumb": "assets/projects/fretlearn.png",
+    "emoji": "🎸",
+    "stack": "JavaScript · PWA · Web Audio",
+    "desc": {
+      "de": "Lern-App für die Töne auf dem Gitarren-Griffbrett, mit Lernpfad und Übungsmodi. Offline nutzbar, komplett mit KI gebaut.",
+      "en": "Learning app for the notes on a guitar fretboard, with a learning path and practice modes. Works offline, built entirely with AI."
+    }
+  },
+  {
     "name": "OnlineIDE",
     "repo": "https://github.com/RustamAkhmedov/OnlineIDE",
     "thumb": "assets/projects/onlineide.png",
@@ -9,6 +31,14 @@
       "de": "Browserbasierte IDE mit Code-Ausführung über die Judge0-API und json-server-Backend.",
       "en": "Browser-based IDE with code execution via the Judge0 API and json-server backend."
     }
+  },
+  {
+    "name": "DrawingTool",
+    "repo": "https://github.com/RustamAkhmedov/DrawingTool",
+    "thumb": "assets/projects/drawingtool.png",
+    "emoji": "🎨",
+    "stack": "C++ · raylib",
+    "desc": { "de": "Zeichen-Tool mit Raylib, geschrieben in C++.", "en": "Drawing tool built with Raylib, written in C++." }
   },
   {
     "name": "JDBC-TicketSystem",
@@ -35,14 +65,6 @@
     "desc": { "de": "2D-Shooter-Spiel mit Java Swing.", "en": "2D shooter game built with Java Swing." }
   },
   {
-    "name": "DrawingTool",
-    "repo": "https://github.com/RustamAkhmedov/DrawingTool",
-    "thumb": "assets/projects/drawingtool.png",
-    "emoji": "🎨",
-    "stack": "C++ · raylib",
-    "desc": { "de": "Zeichen-Tool mit Raylib, geschrieben in C++.", "en": "Drawing tool built with Raylib, written in C++." }
-  },
-  {
     "name": "Arkanoid",
     "repo": "https://github.com/RustamAkhmedov/Arkanoid",
     "thumb": "assets/projects/arkanoid.png",
@@ -55,15 +77,26 @@
     "repo": "https://github.com/RustamAkhmedov/Sudoku",
     "thumb": "assets/projects/sudoku.png",
     "emoji": "🔢",
-    "stack": "JavaScript",
-    "desc": { "de": "Sudoku-Spiel im Browser.", "en": "Sudoku game in the browser." }
+    "stack": "JavaScript · React",
+    "desc": { "de": "Sudoku-Spiel im Browser, gebaut mit React.", "en": "Sudoku game for the browser, built with React." }
   },
   {
     "name": "Store",
     "repo": "https://github.com/RustamAkhmedov/Store",
     "thumb": "assets/projects/store.png",
     "emoji": "🛍️",
-    "stack": "Python",
-    "desc": { "de": "Store-Projekt in Python.", "en": "Store project written in Python." }
+    "stack": "Python · Django",
+    "desc": { "de": "Online-Shop als Web-App mit Django.", "en": "Store web app built with Django." }
+  },
+  {
+    "name": "rest_api_project",
+    "repo": "https://github.com/RustamAkhmedov/rest_api_project",
+    "thumb": "assets/projects/rest-api.png",
+    "emoji": "🔌",
+    "stack": "Python · Django REST Framework",
+    "desc": {
+      "de": "REST-API für Beiträge und Kategorien mit Django REST Framework, Token-Login (Djoser), Filtern und Seitenaufteilung.",
+      "en": "REST API for posts and categories with Django REST Framework, token login (Djoser), filtering and pagination."
+    }
   }
 ]

@@ -1,0 +1,35 @@
+<!-- ============ CAT MASCOT ============ -->
+<!-- Purely ornamental, so it is hidden from assistive tech rather than
+     exposed as a control that would just read as noise. Behaviour: initMascot in js/main.js. -->
+<div class="mascot" data-mascot hidden aria-hidden="true">
+  <div class="mascot__runner" data-mascot-runner>
+    <div class="mascot__bubble" data-mascot-bubble></div>
+    <div class="mascot__sprite" data-mascot-sprite></div>
+  </div>
+</div>
+
+
+<!-- ============ SHORTCUT SHEET ============ -->
+<!-- The keys themselves are handled in initShortcuts in js/main.js; keep this list in sync with it. -->
+<div class="sheet" data-shortcuts hidden>
+  <div class="sheet__panel" role="dialog" aria-label="{{shortcuts.title}}">
+    <div class="titlebar">
+      <div class="dot"></div><div class="dot"></div>
+      <div class="name">{{shortcuts.title}}</div>
+      <div class="spacer"></div>
+    </div>
+    <div class="sheet__body">
+      <dl class="keys">
+        <div class="keys__row"><dt><kbd data-mod>Ctrl</kbd><kbd>K</kbd></dt><dd>{{shortcuts.terminal}}</dd></div>
+        <div class="keys__row"><dt><kbd>1</kbd>…<kbd>4</kbd></dt><dd>{{shortcuts.sections}}</dd></div>
+        <div class="keys__row"><dt><kbd>?</kbd></dt><dd>{{shortcuts.sheet}}</dd></div>
+        <div class="keys__row"><dt><kbd>M</kbd></dt><dd>{{shortcuts.sound}}</dd></div>
+        <div class="keys__row"><dt><kbd>Esc</kbd></dt><dd>{{shortcuts.close}}</dd></div>
+      </dl>
+      <button class="sheet__close" type="button" data-shortcuts-close>{{shortcuts.close}}</button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating app windows are created here by js/windows.js -->
+<div class="wins" data-wins></div>

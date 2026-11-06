@@ -1,0 +1,69 @@
+[
+  {
+    "name": "OnlineIDE",
+    "repo": "https://github.com/RustamAkhmedov/OnlineIDE",
+    "thumb": "assets/projects/onlineide.png",
+    "emoji": "🖥️",
+    "stack": "JavaScript · Judge0 · json-server",
+    "desc": {
+      "de": "Browserbasierte IDE mit Code-Ausführung über die Judge0-API und json-server-Backend.",
+      "en": "Browser-based IDE with code execution via the Judge0 API and json-server backend."
+    }
+  },
+  {
+    "name": "JDBC-TicketSystem",
+    "repo": "https://github.com/RustamAkhmedov/JDBC-TicketSystem",
+    "thumb": "assets/projects/jdbc-ticketsystem.png",
+    "emoji": "🎫",
+    "stack": "Java · Spring · JDBC",
+    "desc": { "de": "Ticket-WebApp mit Spring und JDBC.", "en": "Ticket WebApp built with Spring and JDBC." }
+  },
+  {
+    "name": "SpringWeatherWebsite",
+    "repo": "https://github.com/RustamAkhmedov/SpringWeatherWebsite",
+    "thumb": "assets/projects/weatherapp.png",
+    "emoji": "⛅",
+    "stack": "Java · Spring · OpenWeatherAPI",
+    "desc": { "de": "Wetter-Website mit Spring und der OpenWeatherAPI.", "en": "Weather website built with Spring and the OpenWeather API." }
+  },
+  {
+    "name": "SwingShooter2D",
+    "repo": "https://github.com/RustamAkhmedov/SwingShooter2D",
+    "thumb": "assets/projects/swing-shootergame.png",
+    "emoji": "🔫",
+    "stack": "Java · Swing",
+    "desc": { "de": "2D-Shooter-Spiel mit Java Swing.", "en": "2D shooter game built with Java Swing." }
+  },
+  {
+    "name": "DrawingTool",
+    "repo": "https://github.com/RustamAkhmedov/DrawingTool",
+    "thumb": "assets/projects/drawingtool.png",
+    "emoji": "🎨",
+    "stack": "C++ · raylib",
+    "desc": { "de": "Zeichen-Tool mit Raylib, geschrieben in C++.", "en": "Drawing tool built with Raylib, written in C++." }
+  },
+  {
+    "name": "Arkanoid",
+    "repo": "https://github.com/RustamAkhmedov/Arkanoid",
+    "thumb": "assets/projects/arkanoid.png",
+    "emoji": "🧱",
+    "stack": "Python · Pygame",
+    "desc": { "de": "Klassisches Arkanoid-Spiel mit Pygame.", "en": "Classic Arkanoid game built with Pygame." }
+  },
+  {
+    "name": "Sudoku",
+    "repo": "https://github.com/RustamAkhmedov/Sudoku",
+    "thumb": "assets/projects/sudoku.png",
+    "emoji": "🔢",
+    "stack": "JavaScript",
+    "desc": { "de": "Sudoku-Spiel im Browser.", "en": "Sudoku game in the browser." }
+  },
+  {
+    "name": "Store",
+    "repo": "https://github.com/RustamAkhmedov/Store",
+    "thumb": "assets/projects/store.png",
+    "emoji": "🛍️",
+    "stack": "Python",
+    "desc": { "de": "Store-Projekt in Python.", "en": "Store project written in Python." }
+  }
+]

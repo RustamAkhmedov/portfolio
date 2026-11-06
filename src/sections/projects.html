@@ -1,0 +1,26 @@
+    <!-- ============ TOP PROJECTS ============ -->
+    <!-- Cards come from src/projects.json (order = order on the page). -->
+    <section id="projects" aria-labelledby="projects-title">
+      <div class="mac-window">
+        <div class="titlebar">
+          <div class="dot"></div><div class="dot"></div>
+          <div class="name">top-projects — finder</div><span class="step-tag" aria-hidden="true">02</span>
+          <div class="spacer"></div>
+        </div>
+        <div class="window-body">
+          <div class="section-head"><h2 id="projects-title">Top Projects</h2></div>
+          <div class="finder-scroll" tabindex="0" role="region" aria-label="Top Projects">
+{{#projects}}
+            <a class="proj-card" href="{{repo}}" target="_blank" rel="noopener">
+              <div class="proj-thumb">
+                <img class="proj-thumb-img" data-thumb src="{{thumb}}" alt="" loading="lazy">
+                <span class="proj-thumb-fallback" aria-hidden="true">{{emoji}}</span>
+              </div>
+              <div class="proj-info"><h3>{{name}}</h3><p>{{desc}}</p><p class="stack">{{stack}}</p><p class="gh-hint">▣ GitHub ↗</p></div>
+            </a>
+{{/projects}}
+          </div>
+          <p class="scroll-hint" aria-hidden="true">← scroll →</p>
+        </div>
+      </div>
+    </section>

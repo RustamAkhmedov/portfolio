@@ -1,0 +1,7 @@
+{
+  "base": "https://rustamakhmedov.github.io/portfolio/",
+  "languages": {
+    "de": { "file": "index.html", "ogLocale": "de_AT" },
+    "en": { "file": "index_en.html", "ogLocale": "en_US" }
+  }
+}

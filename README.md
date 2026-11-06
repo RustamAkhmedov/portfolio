@@ -4,12 +4,34 @@ My personal portfolio, built as a retro desktop OS: a menu bar, draggable-lookin
 windows, a boot splash, a CRT scanline overlay, and a pixel cat that wanders
 around the corner of the screen.
 
-Static HTML, CSS and JavaScript. No framework, no build step, no dependencies —
-the deployed site is exactly what is in this repository.
+Static HTML, CSS and JavaScript. No framework and no runtime dependencies — the
+deployed site is exactly what is in this repository.
 
-**German:** `index.html` · **English:** `index_en.html`
+**German:** `index.html` · **English:** `index_en.html` — both are **generated** from
+`src/` by a small dependency-free Node script, so the two languages share one set of
+markup. Never edit them by hand.
 
 ---
+
+## Editing it
+
+```bash
+npm install      # once — only jsdom, for the tests
+npm run build    # regenerate index.html + index_en.html from src/
+npm test         # pages up to date? translations complete? both pages load cleanly in jsdom?
+```
+
+| To change … | edit … |
+|---|---|
+| any text, in both languages | `src/strings.json` (`{ "de": …, "en": … }` side by side) |
+| the project cards | `src/projects.json` |
+| the live demos | `src/demos.json` |
+| a section's markup | `src/sections/<section>.html` |
+| page skeleton, `<head>` | `src/page.html` |
+
+The template syntax is a small subset of Mustache, documented at the top of
+`tools/build.mjs`. An unknown key or a missing translation fails the build instead of
+leaving a blank on the page.
 
 ## Running it
 
@@ -29,8 +51,11 @@ would need `fetch()`.
 ## Layout
 
 ```
-index.html          German page
-index_en.html       English page — same markup, translated copy
+index.html          German page   — GENERATED, do not edit
+index_en.html       English page  — GENERATED, do not edit
+src/                Sources for both pages (markup, strings, project/demo data)
+tools/build.mjs     Builds the pages from src/ (`--check` verifies they are current)
+tests/              node --test suites (data checks + both pages in jsdom)
 css/styles.css      One stylesheet, sectioned, with design tokens at the top
 js/main.js          All behaviour: boot, clock, menus, scroll effects,
                     previews, typewriters, cat mascot
@@ -43,11 +68,11 @@ assets/
   projects/         Project screenshots
   arkanoid/         Pygame build, compiled to WebAssembly
   drawingtool/      raylib build, compiled to WebAssembly
-tools/              Asset pipeline (see below)
+tools/*.py          Asset pipeline (see below)
 ```
 
-The two language pages are kept structurally identical, so a diff between them
-shows only translated strings.
+Both language pages come from the same markup, and a test checks that their
+structure is identical.
 
 ---
 

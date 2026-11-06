@@ -1,0 +1,15 @@
+{
+  "name": "rustam-os-portfolio",
+  "private": true,
+  "description": "Portfolio website rustam.os — static site for GitHub Pages, two languages generated from src/",
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "check": "node tools/build.mjs --check",
+    "test": "node tools/build.mjs --check && node --test \"tests/*.test.mjs\"",
+    "serve": "python3 -m http.server 8000"
+  },
+  "devDependencies": {
+    "jsdom": "24.1.3"
+  }
+}

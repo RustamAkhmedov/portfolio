@@ -17,3 +17,12 @@ Desktop.ini
 # Python bytecode from tools/
 __pycache__/
 *.pyc
+
+# npm (jsdom for the tests)
+node_modules/
+
+# Spec Kit and AI-agent notes (local only)
+.specify/
+specs/
+AGENTS.md
+CLAUDE.md

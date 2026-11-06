@@ -1,0 +1,35 @@
+    <!-- ============ TRY OUT ============ -->
+    <!-- Cards come from src/demos.json. The iframe only loads on first open (initPreviews in js/main.js). -->
+    <section id="tryout" aria-labelledby="tryout-title">
+      <div class="mac-window">
+        <div class="titlebar">
+          <div class="dot"></div><div class="dot"></div>
+          <div class="name">try-out.app</div><span class="step-tag" aria-hidden="true">03</span>
+          <div class="spacer"></div>
+        </div>
+        <div class="window-body">
+          <div class="section-head"><h2 id="tryout-title">Try it out</h2></div>
+          <p class="section-lead">
+            {{tryout.lead}}
+          </p>
+
+          <div class="tryout-grid">
+{{#demos}}
+            <div class="tryout-card" data-preview>
+              <button class="tryout-titlebar" type="button" data-preview-toggle aria-expanded="false">
+                <span class="dot" aria-hidden="true"></span> {{file}} <span class="hint">{{tryout.click}}</span>
+              </button>
+              <div class="tryout-preview">
+                <img class="tryout-thumb-img" data-thumb src="{{thumb}}" alt="" loading="lazy">
+                <span class="tryout-label"><span class="icon" aria-hidden="true">{{emoji}}</span>{{title}} — {{#wasm}}{{tryout.wasmPreview}}{{/wasm}}{{^wasm}}{{tryout.livePreview}}{{/wasm}}</span>
+              </div>
+              <div class="tryout-frame-wrap">
+                <iframe data-src="{{src}}" loading="lazy" title="{{title}} Live Preview" sandbox="{{sandbox}}"></iframe>
+              </div>
+              <p class="tryout-caption">{{#newTab}}{{title}} — <a href="{{newTab}}" target="_blank" rel="noopener">{{tryout.newTab}}</a>{{/newTab}}{{^newTab}}{{caption}}{{/newTab}}</p>
+            </div>
+{{/demos}}
+          </div>
+        </div>
+      </div>
+    </section>

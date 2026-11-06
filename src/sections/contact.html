@@ -1,0 +1,35 @@
+    <!-- ============ CONTACT + INFO (side by side) ============ -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="bento">
+        <div class="mac-window">
+          <div class="titlebar"><div class="dot"></div><div class="dot"></div><div class="name">get-in-touch.app</div><span class="step-tag" aria-hidden="true">04</span><div class="spacer"></div></div>
+          <div class="window-body">
+            <div class="contact-box">
+              <p class="eyebrow">CONNECT</p>
+              <h2 class="contact-title" id="contact-title">{{contact.title}}</h2>
+              <p>{{contact.text}}</p>
+              <div class="links">
+                <a class="link-btn" href="https://github.com/rustamakhmedov" target="_blank" rel="noopener">▣ GitHub</a>
+                <a class="link-btn" href="https://www.linkedin.com/in/rakhmedov" target="_blank" rel="noopener">▣ LinkedIn</a>
+                <a class="link-btn" href="mailto:rustamakhmedov923@gmail.com">▣ {{contact.email}}</a>
+                <a class="link-btn" href="{{cv.file}}" download="{{cv.downloadName}}">▣ {{contact.cv}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Also read by the terminal (`neofetch`) and the boot log (location, status). -->
+        <div class="mac-window">
+          <div class="titlebar"><div class="dot"></div><div class="dot"></div><div class="name">get info</div><div class="spacer"></div></div>
+          <div class="window-body">
+            <dl class="info-rows">
+              <div class="info-row"><dt class="k">{{info.location.k}}</dt><dd class="v">{{info.location.v}}</dd></div>
+              <div class="info-row"><dt class="k">STATUS</dt><dd class="v on">● {{info.status.v}}</dd></div>
+              <div class="info-row"><dt class="k">{{info.focus.k}}</dt><dd class="v">Software Development</dd></div>
+              <div class="info-row"><dt class="k">{{info.school.k}}</dt><dd class="v">HTL Pinkafeld</dd></div>
+              <div class="info-row"><dt class="k">{{info.languages.k}}</dt><dd class="v">DE · EN · RU</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>

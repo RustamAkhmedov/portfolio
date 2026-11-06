@@ -1,0 +1,42 @@
+[
+  {
+    "file": "onlineide",
+    "title": "OnlineIDE",
+    "thumb": "assets/projects/onlineide.png",
+    "emoji": "🖥️",
+    "src": "https://rustamakhmedov.github.io/OnlineIDE/",
+    "sandbox": "allow-scripts allow-same-origin allow-forms",
+    "wasm": false,
+    "newTab": "https://rustamakhmedov.github.io/OnlineIDE/"
+  },
+  {
+    "file": "drawingtool.wasm",
+    "title": "DrawingTool",
+    "thumb": "assets/projects/drawingtool.png",
+    "emoji": "🎨",
+    "src": "assets/drawingtool/index.html",
+    "sandbox": "allow-scripts allow-same-origin",
+    "wasm": true,
+    "caption": "DrawingTool (C++/raylib)"
+  },
+  {
+    "file": "arkanoid.wasm",
+    "title": "Arkanoid",
+    "thumb": "assets/projects/arkanoid.png",
+    "emoji": "🧱",
+    "src": "assets/arkanoid/index.html",
+    "sandbox": "allow-scripts allow-same-origin allow-pointer-lock",
+    "wasm": true,
+    "caption": "Arkanoid (Python/Pygame)"
+  },
+  {
+    "file": "sudoku",
+    "title": "Sudoku",
+    "thumb": "assets/projects/sudoku.png",
+    "emoji": "🔢",
+    "src": "https://rustamakhmedov.github.io/Sudoku/",
+    "sandbox": "allow-scripts allow-same-origin allow-forms",
+    "wasm": false,
+    "newTab": "https://rustamakhmedov.github.io/Sudoku/"
+  }
+]

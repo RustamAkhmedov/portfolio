@@ -1,0 +1,34 @@
+  <!-- ============ APPS ============ -->
+  <!-- Replaces the old anchor-link dock: these open real windows (js/windows.js).
+       Section navigation still lives in the View menu, and the page scrolls normally.
+       The data-s-* attributes are the UI strings windows.js uses. -->
+  <aside class="rail" aria-label="Apps">
+    <div class="mac-window apps-win">
+      <div class="titlebar">
+        <div class="dot"></div>
+        <div class="name">Apps</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="window-body apps" data-apps
+           data-s-select="{{apps.select}}" data-s-items="{{apps.items}}" data-s-close="{{apps.close}}"
+           data-s-run="{{apps.run}}" data-s-newtab="{{apps.newTab}}" data-s-loading="{{apps.loading}}">
+        <button type="button" class="app" data-app="finder">
+          <span class="app__ico" aria-hidden="true">📁</span>
+          <span class="app__name">finder<span class="app__ext">.app</span></span>
+        </button>
+        <button type="button" class="app" data-app="preview">
+          <span class="app__ico" aria-hidden="true">🖥️</span>
+          <span class="app__name">preview<span class="app__ext">.app</span></span>
+        </button>
+        <button type="button" class="app" data-app="about">
+          <span class="app__ico" aria-hidden="true">👤</span>
+          <span class="app__name">about<span class="app__ext">.app</span></span>
+        </button>
+        <button type="button" class="app" data-app="contact">
+          <span class="app__ico" aria-hidden="true">✉️</span>
+          <span class="app__name">contact<span class="app__ext">.app</span></span>
+        </button>
+        <p class="apps__hint">{{apps.hint}}</p>
+      </div>
+    </div>
+  </aside>

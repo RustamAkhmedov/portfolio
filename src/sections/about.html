@@ -1,0 +1,50 @@
+    <!-- ============ ABOUT ME ============ -->
+    <!-- The rotating tagline under the title lives in TAGLINES in js/main.js. -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="mac-window">
+        <div class="titlebar">
+          <div class="dot"></div><div class="dot"></div>
+          <div class="name">about-me.app</div><span class="step-tag" aria-hidden="true">01</span>
+          <div class="spacer"></div>
+        </div>
+        <div class="window-body">
+          <div class="about-grid">
+            <div class="photo-slot">
+              <img src="assets/profile/Akhmedov.jpg?v=2" alt="{{about.photoAlt}}" width="400" height="400">
+            </div>
+            <div>
+              <p class="eyebrow">HTL PINKAFELD</p>
+              <h1 class="title" id="about-title">{{about.title}}</h1>
+              <p class="typewriter-line"><span id="tw-text"></span><span class="cursor" aria-hidden="true">_</span></p>
+              <div class="about-text">
+                <p>{{{about.text1}}}</p>
+                <p>{{{about.text2}}}</p>
+              </div>
+              <ul class="tags">
+                {{#skills}}<li class="tag">{{.}}</li>{{/skills}}
+              </ul>
+
+              <!-- Live terminal. Every command reads the page itself; see js/terminal.js -->
+              <div class="term" data-terminal>
+                <div class="term__window">
+                  <div class="term__bar">
+                    <span class="dot" aria-hidden="true"></span>
+                    <span class="name">terminal — rustam.os</span>
+                    <span class="term__hint" aria-hidden="true">{{terminal.hint}}</span>
+                  </div>
+                  <div class="term__body" data-term-body>
+                    <div class="term__out" data-term-out role="log" aria-live="polite"></div>
+                    <form class="term__line" data-term-form>
+                      <span class="term__prompt" aria-hidden="true">rustam@os<span class="term__path">:~</span>$</span>
+                      <input class="term__input" data-term-input type="text" autocomplete="off"
+                             autocapitalize="off" autocorrect="off" spellcheck="false"
+                             aria-label="{{terminal.inputLabel}}" placeholder="{{terminal.placeholder}}">
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

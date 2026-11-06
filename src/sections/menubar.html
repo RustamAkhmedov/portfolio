@@ -1,0 +1,42 @@
+<!-- ============ MENU BAR (functional) ============ -->
+<header class="menubar">
+  <div class="brand-group">
+    <span class="brand">rustam.os</span>
+    <span class="holyc-badge" title="Compiled with divine intervention">
+      <span class="prompt" aria-hidden="true">&gt;</span>
+      <img class="holyc-logo" src="assets/icons/holyc.png" width="57" height="64" alt="Holy C logo">
+    </span>
+  </div>
+
+  <nav class="menubar-menus" aria-label="{{menu.label}}">
+    <div class="menu" data-menu>
+      <button type="button" data-menu-toggle aria-expanded="false" aria-haspopup="true">File</button>
+      <div class="menu-drop">
+        <a href="{{cv.file}}" download="{{cv.downloadName}}">⤓ {{menu.file.download}}</a>
+        <a href="{{cv.file}}" target="_blank" rel="noopener">▤ {{menu.file.view}}</a>
+      </div>
+    </div>
+
+    <div class="menu" data-menu>
+      <button type="button" data-menu-toggle aria-expanded="false" aria-haspopup="true">View</button>
+      <div class="menu-drop">
+        <a href="#about">→ About</a>
+        <a href="#projects">→ Projects</a>
+        <a href="#tryout">→ Try it out</a>
+        <a href="#contact">→ Contact</a>
+      </div>
+    </div>
+
+    <div class="menu" data-menu>
+      <button type="button" data-menu-toggle aria-expanded="false" aria-haspopup="true">System</button>
+      <div class="menu-drop">
+        <button type="button" data-open-terminal>▤ {{menu.system.terminal}}</button>
+        <button type="button" data-sound-toggle aria-pressed="false">♪ Sound<span class="menu-state" data-sound-state></span></button>
+        <button type="button" data-open-shortcuts>⌘ {{menu.system.shortcuts}}</button>
+      </div>
+    </div>
+  </nav>
+
+  <a class="lang-switch" href="{{@altFile}}" hreflang="{{@altLang}}" aria-label="{{menu.langSwitch}}">{{@altLang}}</a>
+  <span class="clock" id="clock" aria-hidden="true">--:--</span>
+</header>
